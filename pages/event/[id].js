@@ -14,7 +14,9 @@ import {
 } from 'semantic-ui-react'
 import { useState } from 'react'
 
-import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
+import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
+
+import PaypalButton from '@/components/paypal/paypalButton'
 
 export default function EventPage() {
     return (
@@ -68,15 +70,7 @@ export default function EventPage() {
                                             <Modal.Content image scrolling>
                                                 <Modal.Description>
                                                     <Comment.Group>
-                                                        <Comment>
-                                                            <Comment.Content>
-                                                                <Comment.Avatar src="" />
-                                                                <Comment.Text>Text comment for use-case scenario</Comment.Text>
-                                                                <Comment.Metadata>
-                                                                    Aug 11th, 2021
-                                                                </Comment.Metadata>
-                                                            </Comment.Content>
-                                                        </Comment>
+                                                        <EventComments />
                                                     </Comment.Group>
                                                     <Form>
                                                         <Form.TextArea />
@@ -118,6 +112,22 @@ export default function EventPage() {
     )
 }
 
+const EventComments = () => {
+    return (
+        <>
+            <Comment>
+                <Comment.Content>
+                    <Comment.Avatar src="" />
+                    <Comment.Text>Text comment for use-case scenario</Comment.Text>
+                    <Comment.Metadata>
+                        Aug 11th, 2021
+                    </Comment.Metadata>
+                </Comment.Content>
+            </Comment>
+        </>
+    )
+}
+
 const Ticket = () => {
     return (
         <>
@@ -147,6 +157,9 @@ const Ticket = () => {
                                 <Button>Mobile Payment</Button>
                             </Grid.Column>
                         </Grid.Row>
+                        <Grid.Row>
+                            <PaypalButton />
+                        </Grid.Row>
                     </Grid>
                 </Modal.Content>
             </Modal>
@@ -156,7 +169,7 @@ const Ticket = () => {
 
 const MapView = () => {
 
-    const MAPBOX_TOKEN = 'pk.eyJ1IjoiaHh4ZGluaSIsImEiOiJjazVhdzFidzgxMXNsM2RtdTF1OWlxZXpjIn0.jXYhsVDsmIDv5If9MewsWQ';
+    const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_REACT_MGL_API_TOKEN
 
     const [viewport, setViewport] = useState({
         latitude: 37.8,
@@ -164,9 +177,9 @@ const MapView = () => {
         zoom: 14,
         bearing: 0,
         pitch: 0
-    });
+    })
 
-    const [showPop, setShowPop] = useState(true);
+    const [showPop, setShowPop] = useState(true)
 
 
     return (
@@ -175,7 +188,7 @@ const MapView = () => {
                 {...viewport}
                 width="80vw"
                 height="50vh"
-                mapStyle="mapbox://styles/hxxdini/ck5c2oc3j0tb21cqk3hhq8k9w"
+                mapStyle={process.env.NEXT_PUBLIC_REACT_MGL_MAPSTYLE}
                 onViewportChange={setViewport}
                 mapboxApiAccessToken={MAPBOX_TOKEN}
             >

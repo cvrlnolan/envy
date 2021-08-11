@@ -8,6 +8,7 @@ import {
     Icon,
     Label
 } from "semantic-ui-react"
+import Link from "next/link"
 
 const EventCard = ({ event }) => {
     return (
@@ -52,9 +53,11 @@ const EventCard = ({ event }) => {
                                     </Button.Group>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Button>
-                                        Event Page
-                                    </Button>
+                                    <Link href="/event/123" passHref>
+                                        <Button>
+                                            Event Page
+                                        </Button>
+                                    </Link>
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
