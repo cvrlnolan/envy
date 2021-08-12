@@ -1,6 +1,6 @@
+import Head from 'next/head'
 import Navbar from '@/components/layout/navbar'
 import {
-    Container,
     Segment,
     Grid,
     Header,
@@ -21,92 +21,93 @@ import PaypalButton from '@/components/paypal/paypalButton'
 export default function EventPage() {
     return (
         <>
+            <Head>
+                <title>Event Page | Envy</title>
+            </Head>
             <Navbar>
-                <Container text textAlign="center">
-                    <Segment raised padded>
-                        <Grid centered stackable>
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="test_image" wrapped ui={false} rounded className='page_image' />
-                                </Grid.Column>
-                                <Grid.Column>
-                                    <Header>
-                                        <Header.Content>Event Name</Header.Content>
-                                        <Header.Subheader>Event Category</Header.Subheader>
-                                    </Header>
-                                    <Header as="h4">Date and Time</Header>
-                                    <p>Event Start Date - Event End Date</p>
-                                    <Header as="h4">Address</Header>
-                                    <p>Venue, Street Name</p>
-                                    <p>City, Province</p>
-                                    <p>Counrty</p>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <Button.Group icon>
-                                        <Button as="div" labelPosition="right">
-                                            <Button>
-                                                <Icon name="heart" />
-                                            </Button>
-                                            <Label as='a' basic pointing='left'>
-                                                0
-                                            </Label>
+                <Segment raised padded>
+                    <Grid container centered stackable>
+                        <Grid.Row columns={2}>
+                            <Grid.Column>
+                                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="test_image" wrapped ui={false} rounded className='page_image' />
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Header>
+                                    <Header.Content>Event Name</Header.Content>
+                                    <Header.Subheader>Event Category</Header.Subheader>
+                                </Header>
+                                <Header as="h4">Date and Time</Header>
+                                <p>Event Start Date - Event End Date</p>
+                                <Header as="h4">Address</Header>
+                                <p>Venue, Street Name</p>
+                                <p>City, Province</p>
+                                <p>Counrty</p>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Button.Group icon>
+                                    <Button as="div" labelPosition="right">
+                                        <Button>
+                                            <Icon name="heart" />
                                         </Button>
-                                        <Modal
-                                            trigger={
-                                                <Button as="div" labelPosition="right">
-                                                    <Button>
-                                                        <Icon name="chat" />
-                                                    </Button>
-                                                    <Label as='a' basic pointing='left'>
-                                                        0
-                                                    </Label>
+                                        <Label as='a' basic pointing='left'>
+                                            0
+                                        </Label>
+                                    </Button>
+                                    <Modal
+                                        trigger={
+                                            <Button as="div" labelPosition="right">
+                                                <Button>
+                                                    <Icon name="chat" />
                                                 </Button>
-                                            }
-                                            closeIcon
-                                        >
-                                            <Modal.Header>Comments</Modal.Header>
-                                            <Modal.Content image scrolling>
-                                                <Modal.Description>
-                                                    <Comment.Group>
-                                                        <EventComments />
-                                                    </Comment.Group>
-                                                    <Form>
-                                                        <Form.TextArea />
-                                                        <Button primary>Send Message</Button>
-                                                    </Form>
-                                                </Modal.Description>
-                                            </Modal.Content>
-                                        </Modal>
-                                    </Button.Group>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <Header as="h4">Description</Header>
-                                    <p>Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <Header as="h4">Contact</Header>
-                                    <p>+237 696 74 0298</p>
-                                    <p>blackhxxdini@gmail.com</p>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <Header as="h4">Ticket</Header>
-                                    <Ticket />
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <MapView />
-                            </Grid.Row>
-                        </Grid>
-                    </Segment>
-                </Container>
+                                                <Label as='a' basic pointing='left'>
+                                                    0
+                                                </Label>
+                                            </Button>
+                                        }
+                                        closeIcon
+                                    >
+                                        <Modal.Header>Comments</Modal.Header>
+                                        <Modal.Content image scrolling>
+                                            <Modal.Description>
+                                                <Comment.Group>
+                                                    <EventComments />
+                                                </Comment.Group>
+                                                <Form>
+                                                    <Form.TextArea />
+                                                    <Button primary>Send Message</Button>
+                                                </Form>
+                                            </Modal.Description>
+                                        </Modal.Content>
+                                    </Modal>
+                                </Button.Group>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Header as="h4">Description</Header>
+                                <p>Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Header as="h4">Contact</Header>
+                                <p>+237 696 74 0298</p>
+                                <p>blackhxxdini@gmail.com</p>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Header as="h4">Ticket</Header>
+                                <Ticket />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <MapView />
+                        </Grid.Row>
+                    </Grid>
+                </Segment>
             </Navbar>
         </>
     )

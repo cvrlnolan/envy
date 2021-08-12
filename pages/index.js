@@ -1,10 +1,9 @@
 import Head from 'next/head'
-
+import Link from 'next/link'
 import {
   Grid,
   Card,
-  Icon,
-  Image
+  Button
 } from "semantic-ui-react"
 
 import Navbar from '@/components/layout/navbar'
@@ -19,9 +18,19 @@ const events = [
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Events | Envy</title>
+      </Head>
       <Navbar>
-        <Grid columns='equal'>
-          <Card.Group centered>
+        <Grid centered>
+          <Grid.Row>
+            <Link href='/event/create' passHref>
+              <Button primary>Create Event</Button>
+            </Link>
+          </Grid.Row>
+        </Grid>
+        <Grid centered stackable columns='equal'>
+          <Card.Group centered items={events.length}>
             {events.map(event => (
               <EventCard key={event.key} event={event} />
             ))}

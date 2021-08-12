@@ -5,12 +5,12 @@ import {
     Container,
     Dropdown,
     Grid,
-    Header,
     Divider,
     Icon,
     Menu,
-    Message
 } from "semantic-ui-react";
+
+import Link from 'next/link'
 
 class Navbar extends Component {
     state = {
@@ -39,33 +39,29 @@ class Navbar extends Component {
                 <Grid padded className="tablet computer only">
                     <Menu borderless fluid fixed="top" size="huge">
                         <Container>
-                            <Menu.Item header as="a">
+                            <Menu.Item header>
                                 Envy
                             </Menu.Item>
-                            <Menu.Item active as="a">
-                                Home
-                            </Menu.Item>
-                            <Menu.Item as="a">Venues</Menu.Item>
-                            <Menu.Item as="a">Contact</Menu.Item>
-                            <Dropdown item text="Dropdown">
+                            <Link href='/' passHref>
+                                <Menu.Item as="a">
+                                    Events
+                                </Menu.Item>
+                            </Link>
+                            <Link href='/venues' passHref>
+                                <Menu.Item as="a">Venues</Menu.Item>
+                            </Link>
+                            <Dropdown item text="Create">
                                 <Dropdown.Menu>
-                                    <Dropdown.Item as="a" href="#root">
-                                        Action
-                                    </Dropdown.Item>
-                                    <Dropdown.Item as="a" href="#root">
-                                        Another Action
-                                    </Dropdown.Item>
-                                    <Dropdown.Item as="a" href="#root">
-                                        Something else here
-                                    </Dropdown.Item>
-                                    <Dropdown.Divider />
-                                    <Dropdown.Header>Navbar header</Dropdown.Header>
-                                    <Dropdown.Item as="a" href="#root">
-                                        Separated link
-                                    </Dropdown.Item>
-                                    <Dropdown.Item as="a" href="#root">
-                                        One more separated link
-                                    </Dropdown.Item>
+                                    <Link href='/event/create' passHref>
+                                        <Dropdown.Item key="event" as="a">
+                                            Event
+                                        </Dropdown.Item>
+                                    </Link>
+                                    <Link href='/venue/create' passHref>
+                                        <Dropdown.Item key="venue" as="a">
+                                            Venue
+                                        </Dropdown.Item>
+                                    </Link>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Container>
@@ -94,19 +90,30 @@ class Navbar extends Component {
                             fluid
                             style={this.state.dropdownMenuStyle}
                         >
-                            <Menu.Item active as="a">
-                                Home
-                            </Menu.Item>
-                            <Menu.Item as="a">About</Menu.Item>
-                            <Menu.Item as="a">Contact</Menu.Item>
+                            <Link href='/' passHref><Menu.Item as="a">Events</Menu.Item></Link>
+                            <Link href='/venues' passHref><Menu.Item as="a">Venues</Menu.Item></Link>
+                            <Dropdown item text="Create">
+                                <Dropdown.Menu>
+                                    <Link href='/event/create' passHref>
+                                        <Dropdown.Item key="event" as="a">
+                                            Event
+                                        </Dropdown.Item>
+                                    </Link>
+                                    <Link href='/venue/create' passHref>
+                                        <Dropdown.Item key="venue" as="a">
+                                            Venue
+                                        </Dropdown.Item>
+                                    </Link>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Menu>
                     </Menu>
                 </Grid>
                 <Divider hidden section />
                 <br />
-                <Grid padded container centered>
+                <Container text textAlign="center">
                     {children}
-                </Grid>
+                </Container>
                 <Divider hidden section />
             </div>
         );

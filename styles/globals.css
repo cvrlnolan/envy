@@ -54,28 +54,28 @@ a {
 }
 
 
-.event_card_image {
+.card_image {
   width: 100% !important;
   height: 170px !important;
 }
 
-.event_card_image img {
+.card_image img {
   height: 100% !important;
   object-fit: cover;
 }
 
-.event_card_description {
+.card_description {
   min-height: 70px;
   max-height: 70px;
   overflow: hidden;
 }
 
-.modal_event_image {
+.modal_image {
   width: 600px !important;
   height: 300px !important;
 }
 
-.modal_event_image img {
+.modal_image img {
   width: 100% !important;
   height: inherit !important;
   object-fit: cover;

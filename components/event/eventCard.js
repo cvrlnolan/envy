@@ -16,11 +16,11 @@ const EventCard = ({ event }) => {
             <Modal
                 trigger={
                     <Card link>
-                        <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="test_image" wrapped ui={false} className='event_card_image' />
+                        <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="test_image" wrapped ui={false} className='card_image' />
                         <Card.Content>
                             <Card.Header>{event.name}</Card.Header>
                             <Card.Meta>{event.startDate}</Card.Meta>
-                            <Card.Description className='event_card_description'>{event.eventDetails}</Card.Description>
+                            <Card.Description className='card_description'><p>{event.eventDetails}</p></Card.Description>
                         </Card.Content>
                         <Card.Content extra>
                             <Label>
@@ -38,7 +38,7 @@ const EventCard = ({ event }) => {
             >
                 <Modal.Header>{event.name}</Modal.Header>
                 <Modal.Content image scrolling>
-                    <Image wrapped src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="event_image" rounded className='modal_event_image' />
+                    <Image wrapped src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="event_image" rounded className='modal_image' />
                     <Modal.Description>
                         <Grid container stackable>
                             <Grid.Row columns='equal'>
