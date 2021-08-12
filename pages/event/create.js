@@ -22,10 +22,10 @@ import {
     TimeInput,
 } from 'semantic-ui-calendar-react'
 
-import { countryOptions } from 'assets/countries'
-import { categories } from 'assets/eventCategories'
-import { types } from 'assets/eventTypes'
-import { extensions } from 'assets/phoneExtensions'
+import { countryOptions } from '@/assets/countries'
+import { categories } from '@/assets/eventCategories'
+import { types } from '@/assets/eventTypes'
+import { extensions } from '@/assets/phoneExtensions'
 
 export default function CreateEvent() {
 

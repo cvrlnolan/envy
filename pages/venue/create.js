@@ -16,11 +16,11 @@ import { TimeInput } from 'semantic-ui-calendar-react'
 import { useState, createRef } from 'react'
 import Compressor from 'compressorjs';
 
-import { categories } from 'assets/venueCategories'
-import { specialities } from 'assets/venueSpecialities'
-import { days } from 'assets/weekDays'
-import { countryOptions } from 'assets/countries'
-import { extensions } from 'assets/phoneExtensions'
+import { categories } from '@/assets/venueCategories'
+import { specialities } from '@/assets/venueSpecialities'
+import { days } from '@/assets/weekDays'
+import { countryOptions } from '@/assets/countries'
+import { extensions } from '@/assets/phoneExtensions'
 
 export default function CreateVenue() {
 
