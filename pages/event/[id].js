@@ -13,12 +13,39 @@ import {
     Comment
 } from 'semantic-ui-react'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import axios from 'axios';
+import useSWR from 'swr';
 
 import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
 
 import PaypalButton from '@/components/paypal/paypalButton'
 
-export default function EventPage({ eventData }) {
+export default function EventPage() {
+
+    const router = useRouter()
+    const { id } = router.query
+
+    const fetcher = url => axios.get(url).then(res => res.data)
+
+    const { data: event, error } = useSWR(() => '/api/event/' + id, fetcher)
+
+    if (error) {
+        return (
+            <>
+                <div>Error encountered...</div>
+            </>
+        )
+    }
+
+    if (!event) {
+        return (
+            <>
+                <div>Loading...</div>
+            </>
+        )
+    }
+
     return (
         <>
             <Head>
@@ -29,19 +56,19 @@ export default function EventPage({ eventData }) {
                     <Grid container centered stackable>
                         <Grid.Row columns={2}>
                             <Grid.Column>
-                                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="test_image" wrapped ui={false} rounded className='page_image' />
+                                <Image src={event.eventImgUrl} alt="test_image" wrapped ui={false} rounded className='page_image' />
                             </Grid.Column>
                             <Grid.Column>
                                 <Header>
-                                    <Header.Content>{eventData.eventName}</Header.Content>
-                                    <Header.Subheader>Event Category</Header.Subheader>
+                                    <Header.Content>{event.eventName}</Header.Content>
+                                    <Header.Subheader>{event.eventCategory}</Header.Subheader>
                                 </Header>
                                 <Header as="h4">Date and Time</Header>
-                                <p>Event Start Date - Event End Date</p>
+                                <p>{event.startDate} {event.startTime} - {event.endDate} {event.endTime}</p>
                                 <Header as="h4">Address</Header>
-                                <p>Venue, Street Name</p>
-                                <p>City, Province</p>
-                                <p>Counrty</p>
+                                <p>{event.eventVenue}, {event.eventStreet}</p>
+                                <p>{event.eventCity}, {event.eventProvince}</p>
+                                <p>{event.eventProvince}</p>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -87,24 +114,24 @@ export default function EventPage({ eventData }) {
                         <Grid.Row>
                             <Grid.Column>
                                 <Header as="h4">Description</Header>
-                                <p>Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <p>{event.eventDetails}</p>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
                                 <Header as="h4">Contact</Header>
-                                <p>+237 696 74 0298</p>
-                                <p>blackhxxdini@gmail.com</p>
+                                <p>{event.eventTelephone}</p>
+                                <p>{event.eventEmail}</p>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
                                 <Header as="h4">Ticket</Header>
-                                <Ticket />
+                                <Ticket ticket={event.ticket} />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <MapView />
+                            <MapView long={event.lng} lat={event.lat} />
                         </Grid.Row>
                     </Grid>
                 </Segment>
@@ -129,13 +156,16 @@ const EventComments = () => {
     )
 }
 
-const Ticket = () => {
+const Ticket = (props) => {
+
+    const { ticket } = props
+
     return (
         <>
             <Modal
                 trigger={
                     <Label as="a" tag>
-                        $10
+                        {ticket ? '$10' : 'Free'}
                     </Label>
                 }
             >
@@ -168,13 +198,15 @@ const Ticket = () => {
     )
 }
 
-const MapView = () => {
+const MapView = (props) => {
+
+    const { long, lat } = props
 
     const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_REACT_MGL_API_TOKEN
 
     const [viewport, setViewport] = useState({
-        latitude: 37.8,
-        longitude: -122.4,
+        latitude: lat,
+        longitude: long,
         zoom: 14,
         bearing: 0,
         pitch: 0

@@ -88,5 +88,6 @@ a {
 
 .page_image img {
   height: 320px !important;
+  width: 300px !important;
   object-fit: cover;
 }

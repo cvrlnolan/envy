@@ -54,7 +54,7 @@ const VenueCard = ({ venue }) => {
                         <Grid container stackable>
                             <Grid.Row>
                                 <Grid.Column>
-                                    <Link href="/venue/123" passHref>
+                                    <Link href={`/venue/${venue.venueId}`} passHref>
                                         <Button>
                                             Venue Page
                                         </Button>

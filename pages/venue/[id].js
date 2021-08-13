@@ -14,10 +14,37 @@ import {
     Comment
 } from 'semantic-ui-react'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import axios from 'axios';
+import useSWR from 'swr';
 
 import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
 
 export default function VenuePage() {
+
+    const router = useRouter()
+    const { id } = router.query
+
+    const fetcher = url => axios.get(url).then(res => res.data)
+
+    const { data: venue, error } = useSWR(() => '/api/venue/' + id, fetcher)
+
+    if (error) {
+        return (
+            <>
+                <div>Error encountered...</div>
+            </>
+        )
+    }
+
+    if (!venue) {
+        return (
+            <>
+                <div>Loading...</div>
+            </>
+        )
+    }
+
     return (
         <>
             <Head>
@@ -28,19 +55,19 @@ export default function VenuePage() {
                     <Grid container centered stackable>
                         <Grid.Row columns={2}>
                             <Grid.Column>
-                                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' alt="test_image" wrapped ui={false} rounded className='page_image' />
+                                <Image src={venue.venueImgUrl} alt="test_image" wrapped ui={false} rounded className='page_image' />
                             </Grid.Column>
                             <Grid.Column>
                                 <Header>
-                                    <Header.Content>Venue Name</Header.Content>
-                                    <Header.Subheader>Venue Category</Header.Subheader>
+                                    <Header.Content>{venue.venueName}</Header.Content>
+                                    <Header.Subheader>{venue.venueCategory}</Header.Subheader>
                                 </Header>
                                 <Header as="h4">Schedule</Header>
-                                <p>Opened Days: <Label>Monday</Label> <Label>Tuesday</Label> <Label>Wednesday</Label> </p>
-                                <p>Exceptional Days: <Label>Sunday</Label> <Label>Saturday</Label></p>
+                                <p>Opened Days: {venue.openingDays.map(day => (<Label key={day}>{day}</Label>))} </p>
+                                <p>Exceptional Days: {venue.exceptionalDays.map(day => (<Label key={day}>{day}</Label>))}</p>
                                 <Header as="h4">Address</Header>
-                                <p>Venue Street Name, City</p>
-                                <p>Province, Cameroon</p>
+                                <p>{venue.venueStreet}, {venue.venueCity}</p>
+                                <p>{venue.venueProvince}, {venue.venueCountry}</p>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -109,18 +136,18 @@ export default function VenuePage() {
                         <Grid.Row>
                             <Grid.Column>
                                 <Header as="h4">Description</Header>
-                                <p>Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <p>{venue.venueDetails}</p>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
                                 <Header as="h4">Contact</Header>
-                                <p>+237 696 74 0298</p>
-                                <p>blackhxxdini@gmail.com</p>
+                                <p>{venue.venueTelephone}</p>
+                                <p>{venue.venueEmail}</p>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <MapView />
+                            <MapView long={venue.lng} lat={venue.lat} />
                         </Grid.Row>
                     </Grid>
                 </Segment>
@@ -145,13 +172,15 @@ const VenueReviews = () => {
     )
 }
 
-const MapView = () => {
+const MapView = (props) => {
+
+    const { long, lat } = props
 
     const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_REACT_MGL_API_TOKEN
 
     const [viewport, setViewport] = useState({
-        latitude: 37.8,
-        longitude: -122.4,
+        latitude: lat,
+        longitude: long,
         zoom: 14,
         bearing: 0,
         pitch: 0
