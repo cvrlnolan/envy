@@ -18,7 +18,7 @@ import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react
 
 import PaypalButton from '@/components/paypal/paypalButton'
 
-export default function EventPage() {
+export default function EventPage({ eventData }) {
     return (
         <>
             <Head>
@@ -33,7 +33,7 @@ export default function EventPage() {
                             </Grid.Column>
                             <Grid.Column>
                                 <Header>
-                                    <Header.Content>Event Name</Header.Content>
+                                    <Header.Content>{eventData.eventName}</Header.Content>
                                     <Header.Subheader>Event Category</Header.Subheader>
                                 </Header>
                                 <Header as="h4">Date and Time</Header>
@@ -217,3 +217,21 @@ const MapView = () => {
         </>
     )
 }
+
+// export async function getStaticPaths() {
+//     const events = await fetch('http://localhost:3000/api/event')
+//     const eventsData = await events.json()
+
+//     const paths = eventsData.map((event) => ({
+//         params: { id: event.eventId },
+//     }))
+
+//     return { paths, fallback: false }
+// }
+
+// export async function getStaticProps({ params }) {
+//     const event = await fetch(`/api/event/${params.id}`)
+//     const eventData = await event.json()
+
+//     return { props: { eventData } }
+// }

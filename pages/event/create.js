@@ -11,11 +11,13 @@ import {
     Dropdown,
     Divider,
     Popup,
-    Checkbox
+    Checkbox,
+    Message
 } from 'semantic-ui-react'
 import Navbar from '@/components/layout/navbar'
 import { useState, createRef } from 'react'
-import Compressor from 'compressorjs';
+import Compressor from 'compressorjs'
+import axios from 'axios'
 
 import {
     DateInput,
@@ -26,6 +28,7 @@ import { countryOptions } from '@/assets/countries'
 import { categories } from '@/assets/eventCategories'
 import { types } from '@/assets/eventTypes'
 import { extensions } from '@/assets/phoneExtensions'
+import InsertEvent from '@/firebase/event/createEvent'
 
 export default function CreateEvent() {
 
@@ -54,6 +57,10 @@ export default function CreateEvent() {
 
     const [tickets, setTickets] = useState(false)
 
+    const [error, setError] = useState()
+    const [success, setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const onChange = (e) => {
         const { value, name } = e.target;
         setValue(prevState => ({ ...prevState, [name]: value }));
@@ -74,9 +81,50 @@ export default function CreateEvent() {
         }
     }
 
+    const url = 'https://api.opencagedata.com/geocode/v1/json?q='
+
     const onCreate = async () => {
-        console.log({ ...value }, eventCategory, eventType, eventCountry, `${phoneExt}${value.eventPhone}`, startDate, startTime, endDate, endTime, tickets)
-        console.log(new Date(`${startDate} ${startTime}`))
+        setLoading(true)
+        setError()
+        setSuccess(false)
+        if (!image) {
+            setLoading(false)
+            setError('No image selected, please choose an image for your event')
+            return
+        }
+        const geoLocation = url + `${value.eventStreet} ${value.eventCity} ${value.eventProvince} ${eventCountry}` + '&key=31ce9ff9efb94ec8a10f32994be7f6a3' + '&pretty=1' + '&no_annotations=1'
+        await axios.get(geoLocation).then((res) => {
+            const data = {
+                ...value,
+                eventCategory,
+                eventType,
+                eventCountry,
+                phoneExt,
+                startDate,
+                startTime,
+                endDate,
+                endTime,
+                tickets,
+                lng: res.data.results[0].geometry.lng,
+                lat: res.data.results[0].geometry.lat
+            }
+            InsertEvent(image, data).then(() => {
+                setLoading(false)
+                setSuccess(true)
+                setValue('')
+                setCategory()
+                setType([])
+                setExt()
+                setStartDate('')
+                setEndDate('')
+                setStartTime('')
+                setEndTime('')
+                setTickets(false)
+            })
+        }).catch((e) => {
+            setLoading(false)
+            console.log(e)
+        })
     }
 
     return (
@@ -87,7 +135,21 @@ export default function CreateEvent() {
             <Navbar>
                 <Segment raised padded>
                     <Grid container centered stackable padded>
-                        <Form onSubmit={onCreate}>
+                        <Form onSubmit={onCreate} loading={loading} error success>
+                            {error &&
+                                <Message
+                                    error
+                                    header='Incomplete Form'
+                                    content={error}
+                                />
+                            }
+                            {success &&
+                                <Message
+                                    success
+                                    header='Event Created Successfully'
+                                    content='You have successfully created an event'
+                                />
+                            }
                             <Header>
                                 <Icon name='text cursor' color='grey' />
                                 <Header.Content>Basic Information</Header.Content>

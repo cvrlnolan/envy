@@ -8,14 +8,32 @@ import {
 
 import Navbar from '@/components/layout/navbar'
 import VenueCard from '@/components/venue/venueCard'
+import axios from 'axios';
+import useSWR from 'swr';
 
-const venues = [
-    { key: 1, name: 'Prototype Venue 1', venueSpeciality: 'Cocktails', venueDetails: 'Prototype venue for use-case testing purposes' },
-    { key: 2, name: 'Prototype Venue 2', venueSpeciality: 'Grillades', venueDetails: 'Prototype venue for use-case testing purposes' },
-    { key: 3, name: 'Prototype Venue 3', venueSpeciality: 'Disco Music', venueDetails: 'Prototype venue for use-case testing purposes' }
-]
 
 export default function Venues() {
+
+    const fetcher = url => axios.get(url).then(res => res.data)
+
+    const { data: venues, error } = useSWR('/api/venue/', fetcher)
+
+    if (error) {
+        return (
+            <>
+                <div>Error encountered...</div>
+            </>
+        )
+    }
+
+    if (!venues) {
+        return (
+            <>
+                <div>Loading...</div>
+            </>
+        )
+    }
+
     return (
         <>
             <Head>
@@ -32,7 +50,7 @@ export default function Venues() {
                 <Grid centered stackable columns='equal'>
                     <Card.Group centered items={venues.length}>
                         {venues.map(venue => (
-                            <VenueCard key={venue.key} venue={venue} />
+                            <VenueCard key={venue.venueId} venue={venue} />
                         ))}
                     </Card.Group>
                 </Grid>

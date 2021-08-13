@@ -8,14 +8,32 @@ import {
 
 import Navbar from '@/components/layout/navbar'
 import EventCard from '@/components/event/eventCard'
+import axios from 'axios';
+import useSWR from 'swr';
 
-const events = [
-  { key: 1, name: 'Prototype Event 1', startDate: 'Aug 11th, 2021', eventDetails: 'Prototype event for use-case testing purposes' },
-  { key: 2, name: 'Prototype Event 2', startDate: 'Aug 12th, 2021', eventDetails: 'Prototype event for use-case testing purposes' },
-  { key: 3, name: 'Prototype Event 3', startDate: 'Aug 13th, 2021', eventDetails: 'Prototype event for use-case testing purposes' }
-]
 
 export default function Home() {
+
+  const fetcher = url => axios.get(url).then(res => res.data)
+
+  const { data: events, error } = useSWR('/api/event/', fetcher)
+
+  if (error) {
+    return (
+      <>
+        <div>Error encountered...</div>
+      </>
+    )
+  }
+
+  if (!events) {
+    return (
+      <>
+        <div>Loading...</div>
+      </>
+    )
+  }
+
   return (
     <>
       <Head>
@@ -32,7 +50,7 @@ export default function Home() {
         <Grid centered stackable columns='equal'>
           <Card.Group centered items={events.length}>
             {events.map(event => (
-              <EventCard key={event.key} event={event} />
+              <EventCard key={event.eventId} event={event} />
             ))}
           </Card.Group>
         </Grid>

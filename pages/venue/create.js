@@ -9,18 +9,21 @@ import {
     Image,
     Button,
     Dropdown,
-    Divider
+    Divider,
+    Message
 } from 'semantic-ui-react'
 import Navbar from '@/components/layout/navbar'
 import { TimeInput } from 'semantic-ui-calendar-react'
 import { useState, createRef } from 'react'
 import Compressor from 'compressorjs';
+import axios from 'axios'
 
 import { categories } from '@/assets/venueCategories'
 import { specialities } from '@/assets/venueSpecialities'
 import { days } from '@/assets/weekDays'
 import { countryOptions } from '@/assets/countries'
 import { extensions } from '@/assets/phoneExtensions'
+import InsertVenue from '@/firebase/venue/registerVenue'
 
 export default function CreateVenue() {
 
@@ -49,6 +52,10 @@ export default function CreateVenue() {
     const [image, setImage] = useState()
     const [prevUrl, setPrevUrl] = useState()
 
+    const [error, setError] = useState()
+    const [success, setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const onChange = (e) => {
         const { value, name } = e.target;
         setValue(prevState => ({ ...prevState, [name]: value }));
@@ -69,8 +76,52 @@ export default function CreateVenue() {
         }
     }
 
+    const url = 'https://api.opencagedata.com/geocode/v1/json?q='
+
     const onRegister = async () => {
-        console.log({ ...value }, venueCategory, venueSpecialty, venueCountry, `${phoneExt} ${value.venuePhone}`, openingDays, exceptionalDays, openingTime, closingTime, excepOpenTime, excepClosingTime)
+        setLoading(true)
+        setError()
+        setSuccess(false)
+        if (!image) {
+            setLoading(false)
+            setError('No image selected, please choose an image for your event')
+            return
+        }
+        const geoLocation = url + `${value.venueStreet} ${value.venueCity} ${value.venueProvince} ${venueCountry}` + '&key=31ce9ff9efb94ec8a10f32994be7f6a3' + '&pretty=1' + '&no_annotations=1'
+        await axios.get(geoLocation).then((res) => {
+            const data = {
+                ...value,
+                venueCategory,
+                venueSpecialty,
+                venueCountry,
+                openingDays,
+                exceptionalDays,
+                openingTime,
+                closingTime,
+                excepOpenTime,
+                excepClosingTime,
+                lng: res.data.results[0].geometry.lng,
+                lat: res.data.results[0].geometry.lat
+            }
+            InsertVenue(image, data).then(() => {
+                setLoading(false)
+                setSuccess(true)
+                setValue('')
+                setCategory()
+                setSpecialty([])
+                setCountry()
+                setExt()
+                setOpeningDays([])
+                setExceptionalDays([])
+                setOpeningTime('')
+                setExcepOpenTime('')
+                setClosingTime('')
+                setExcepClosingTime('')
+            })
+        }).catch((e) => {
+            setLoading(false)
+            console.log(e)
+        })
     }
 
     return (
@@ -81,7 +132,21 @@ export default function CreateVenue() {
             <Navbar>
                 <Segment raised padded>
                     <Grid container centered stackable padded>
-                        <Form onSubmit={onRegister}>
+                        <Form onSubmit={onRegister} loading={loading} error success>
+                            {error &&
+                                <Message
+                                    error
+                                    header='Incomplete Form'
+                                    content={error}
+                                />
+                            }
+                            {success &&
+                                <Message
+                                    success
+                                    header='Venue Created Successfully'
+                                    content='You have successfully registered a venue'
+                                />
+                            }
                             <Header>
                                 <Icon name='clipboard' color='grey' />
                                 <Header.Content>Venue Identification</Header.Content>
@@ -119,7 +184,7 @@ export default function CreateVenue() {
                             <Form.Field required>
                                 <label>Choose the Main Image for your venue</label>
                                 <Button secondary type='button' content='Select image' icon='camera' labelPosition='left' onClick={() => fileInputRef.current.click()} />
-                                <input ref={fileInputRef} type='file' hidden />
+                                <input ref={fileInputRef} type='file' hidden onChange={handleImageChange} />
                             </Form.Field>
                             <Image src={prevUrl} centered alt="venue_image_preview" size='large' rounded />
                             <Divider hidden />
