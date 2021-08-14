@@ -15,15 +15,26 @@ import {
 } from 'semantic-ui-react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import axios from 'axios';
-import useSWR from 'swr';
+import axios from 'axios'
+import useSWR from 'swr'
+import moment from 'moment'
 
 import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
+
+import LikeVenue from '@/firebase/venue/likeVenue'
+
+import PostReview from '@/firebase/venue/postReview'
+
+import RateVenue from '@/firebase/venue/rateVenue'
 
 export default function VenuePage() {
 
     const router = useRouter()
     const { id } = router.query
+
+    const [value, setValue] = useState({
+        review: ''
+    })
 
     const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -37,12 +48,45 @@ export default function VenuePage() {
         )
     }
 
+    //You can use custom UI Components or Semantics to show a custom loading state
+
     if (!venue) {
         return (
             <>
                 <div>Loading...</div>
             </>
         )
+    }
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setValue(prevState => ({ ...prevState, [name]: value }));
+    }
+
+    const onRate = async (e, { rating }) => {
+        try {
+            await RateVenue(venue.venueId, rating)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const onPost = async () => {
+        try {
+            await PostReview(venue.venueId, value).then(() => {
+                setValue('')
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const onLike = async () => {
+        try {
+            await LikeVenue(venue.venueId)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -74,11 +118,11 @@ export default function VenuePage() {
                             <Grid.Column>
                                 <Button.Group icon>
                                     <Button as="div" labelPosition="right">
-                                        <Button>
+                                        <Button onClick={onLike}>
                                             <Icon name="heart" />
                                         </Button>
                                         <Label as='a' basic pointing='left'>
-                                            0
+                                            {venue.likes ? venue.likes : 0}
                                         </Label>
                                     </Button>
                                     <Modal
@@ -88,7 +132,7 @@ export default function VenuePage() {
                                                     <Icon name="chat" />
                                                 </Button>
                                                 <Label as='a' basic pointing='left'>
-                                                    0
+                                                    {venue.reviews ? venue.reviews : 0}
                                                 </Label>
                                             </Button>
                                         }
@@ -98,11 +142,11 @@ export default function VenuePage() {
                                         <Modal.Content scrolling>
                                             <Modal.Description>
                                                 <Comment.Group>
-                                                    <VenueReviews />
+                                                    <VenueReviews venueId={venue.venueId} />
                                                 </Comment.Group>
-                                                <Form>
-                                                    <Form.TextArea />
-                                                    <Button primary>Post Review</Button>
+                                                <Form onSubmit={onPost}>
+                                                    <Form.TextArea name="review" placeholder="Enter review..." value={value.review} onChange={onChange} required />
+                                                    <Button primary type="submit">Post Review</Button>
                                                 </Form>
                                             </Modal.Description>
                                         </Modal.Content>
@@ -114,7 +158,7 @@ export default function VenuePage() {
                                                     <Icon name="star" />
                                                 </Button>
                                                 <Label as='a' basic pointing='left'>
-                                                    3.5
+                                                    {venue.rating}
                                                 </Label>
                                             </Button>
                                         }
@@ -125,7 +169,7 @@ export default function VenuePage() {
                                         <Modal.Content>
                                             <Modal.Description>
                                                 <Grid container padded centered>
-                                                    <Rating size="huge" icon='star' maxRating={5} defaultRating={3.5} />
+                                                    <Rating size="huge" icon='star' maxRating={5} defaultRating={venue.rating} onRate={onRate} />
                                                 </Grid>
                                             </Modal.Description>
                                         </Modal.Content>
@@ -156,18 +200,41 @@ export default function VenuePage() {
     )
 }
 
-const VenueReviews = () => {
+const VenueReviews = (props) => {
+
+    const { venueId } = props
+    const fetcher = url => axios.get(url).then(res => res.data)
+
+    const { data: reviews, error } = useSWR(() => '/api/venue/reviews/' + venueId, fetcher)
+
+    if (error) {
+        return (
+            <>
+                <div>Error encountered...</div>
+            </>
+        )
+    }
+
+    if (!reviews) {
+        return (
+            <>
+                <div>Loading...</div>
+            </>
+        )
+    }
+
     return (
         <>
-            <Comment>
+            {reviews.map(review =>
+            (<Comment key={review.id}>
                 <Comment.Content>
                     <Comment.Avatar src="" />
-                    <Comment.Text>Text comment for use-case scenario</Comment.Text>
+                    <Comment.Text>{review.message}</Comment.Text>
                     <Comment.Metadata>
-                        Aug 11th, 2021
+                        {moment(review.createdDate._seconds * 1000).format("MMM DD, YYYY")}
                     </Comment.Metadata>
                 </Comment.Content>
-            </Comment>
+            </Comment>))}
         </>
     )
 }
@@ -206,18 +273,18 @@ const MapView = (props) => {
                     positionOptions={{ enableHighAccuracy: true }}
                     trackUserLocation={true}
                 />
-                <Marker longitude={-122.4} latitude={37.8} offsetLeft={-20} offsetTop={-10}>
+                <Marker longitude={long} latitude={lat} offsetLeft={-20} offsetTop={-10}>
                     <Icon name='map pin' color='red' />
                 </Marker>
 
                 <Popup
-                    latitude={37.8}
-                    longitude={-122.4}
+                    latitude={lat}
+                    longitude={long}
                     closeButton={true}
                     closeOnClick={false}
                     onClose={() => setShowPop(false)}
                     anchor="top">
-                    <div>Event taking place here</div>
+                    <div>Venue located here</div>
                 </Popup>
             </MapGL>
         </>

@@ -32,11 +32,11 @@ const EventCard = ({ event }) => {
                         <Card.Content extra>
                             <Label>
                                 <Icon name="heart" color="red" />
-                                0 Likes
+                                {event.likes ? event.likes : 0} Likes
                             </Label>
                             <Label>
                                 <Icon name="comments" color="blue" />
-                                0 Comments
+                                {event.comments ? event.comments : 0} Comments
                             </Label>
                         </Card.Content>
                     </Card>

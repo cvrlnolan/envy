@@ -64,6 +64,9 @@ class Navbar extends Component {
                                     </Link>
                                 </Dropdown.Menu>
                             </Dropdown>
+                            <Link href='https://github.com/cvrlnolan/envy' passHref>
+                                <Menu.Item as="a" target="_blank">Repository</Menu.Item>
+                            </Link>
                         </Container>
                     </Menu>
                 </Grid>
@@ -106,6 +109,7 @@ class Navbar extends Component {
                                     </Link>
                                 </Dropdown.Menu>
                             </Dropdown>
+                            <Link href='https://github.com/cvrlnolan/envy' passHref><Menu.Item as="a" target="_blank">Repository</Menu.Item></Link>
                         </Menu>
                     </Menu>
                 </Grid>

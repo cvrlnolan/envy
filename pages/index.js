@@ -8,6 +8,7 @@ import {
 
 import Navbar from '@/components/layout/navbar'
 import EventCard from '@/components/event/eventCard'
+import LoadingCard from '@/components/layout/loadingCard'
 import axios from 'axios';
 import useSWR from 'swr';
 
@@ -26,10 +27,21 @@ export default function Home() {
     )
   }
 
+  //You can use custom UI Components or Semantics to show a custom loading state
+
   if (!events) {
     return (
       <>
-        <div>Loading...</div>
+        <Navbar>
+          <Grid centered stackable columns='equal'>
+            <Card.Group centered>
+              <LoadingCard />
+              <LoadingCard />
+              <LoadingCard />
+              <LoadingCard />
+            </Card.Group>
+          </Grid>
+        </Navbar>
       </>
     )
   }
@@ -48,7 +60,7 @@ export default function Home() {
           </Grid.Row>
         </Grid>
         <Grid centered stackable columns='equal'>
-          <Card.Group centered items={events.length}>
+          <Card.Group centered>
             {events.map(event => (
               <EventCard key={event.eventId} event={event} />
             ))}

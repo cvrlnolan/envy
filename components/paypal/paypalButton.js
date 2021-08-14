@@ -1,22 +1,23 @@
-import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { useState, useEffect } from 'react';
+import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
+import { useState, useEffect } from 'react'
 import { Loader } from 'semantic-ui-react'
+import axios from 'axios'
 
 const PaypalButton = (props) => {
 
-    const [orderID, setOrderID] = useState();
+    const [orderID, setOrderID] = useState()
 
-    const { amount } = props
+    const { ticket, quantity, name, email } = props
 
     function createOrder(data, actions) {
         return actions.order
             .create({
                 purchase_units: [
                     {
-                        description: "Envy Purchase",
+                        description: "Envy Ticket Purchase",
                         amount: {
                             currency_code: "USD",
-                            value: 10
+                            value: 10 * parseInt(quantity)
                         },
                         payee: {
                             email_address: process.env.NEXT_PUBLIC_PAYPAL_PAYEE_EMAIL_ADDRESS //payee email address from Paypal
@@ -24,7 +25,7 @@ const PaypalButton = (props) => {
                     }
                 ],
                 application_context: {
-                    shipping_preference: "NO_SHIPPING",
+                    shipping_preference: "NO_SHIPPING", //Optional context, to include shipping just delete this property..
                 },
             })
             .then((orderID) => {
@@ -34,11 +35,16 @@ const PaypalButton = (props) => {
     }
 
     function onApprove(data, actions) {
-        const paymentData = {
-            orderID: data.orderID,
-            amount
+        //This function is called when a transaction is successful .. 
+        // Hence database base operations concerning the transaction can be implement here 
+
+        const mailDetails = {
+            name,
+            amount: 10 * parseInt(quantity),
+            userEmail: email
         }
         return actions.order.capture().then(function (details) {
+            axios.post('/api/event/purchase', mailDetails) //Send Mail to client after successful purchase..
             console.log(details)
         });
     }
@@ -51,7 +57,7 @@ const PaypalButton = (props) => {
         <>
             <PayPalScriptProvider deferLoading={true} options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_DEVELOPMENT_CLIENT_ID }}>
                 <LoadScriptButton />
-                <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} disabled={amount === 0 ? true : false} style={{ layout: "horizontal", color: "gold", shape: "pill" }} />
+                <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} disabled={ticket ? false : true} style={{ layout: "horizontal", color: "gold", shape: "pill" }} />
             </PayPalScriptProvider>
         </>
     )
@@ -69,7 +75,7 @@ function LoadScriptButton() {
 
     return (
         <>
-            {isPending ? <Loader active /> : null}
+            {isPending ? <Loader inline="centered" active /> : null}
         </>
     );
 }

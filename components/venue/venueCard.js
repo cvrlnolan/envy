@@ -30,17 +30,17 @@ const VenueCard = ({ venue }) => {
                             <Card.Meta>{venue.venueSpecialty.map(specialty => (specialty))}</Card.Meta>
                             <Card.Description className='card_description'>
                                 <p>{trimString(venue.venueDetails, 50)}</p>
-                                <Rating icon='star' maxRating={5} defaultRating={4} disabled />
+                                <Rating icon='star' maxRating={5} defaultRating={venue.rating} disabled />
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
                             <Label>
                                 <Icon name="heart" color="red" />
-                                0 Likes
+                                {venue.likes ? venue.likes : 0} Likes
                             </Label>
                             <Label>
                                 <Icon name="comments" color="blue" />
-                                0 Reviews
+                                {venue.reviews ? venue.reviews : 0} Reviews
                             </Label>
                         </Card.Content>
                     </Card>

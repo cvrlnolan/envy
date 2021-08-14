@@ -14,17 +14,26 @@ import {
 } from 'semantic-ui-react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import axios from 'axios';
-import useSWR from 'swr';
+import axios from 'axios'
+import useSWR from 'swr'
+import moment from 'moment'
 
 import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
 
 import PaypalButton from '@/components/paypal/paypalButton'
 
+import LikeEvent from '@/firebase/event/likeEvent'
+
+import PostComment from '@/firebase/event/postComment'
+
 export default function EventPage() {
 
     const router = useRouter()
     const { id } = router.query
+
+    const [value, setValue] = useState({
+        comment: ''
+    })
 
     const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -38,12 +47,37 @@ export default function EventPage() {
         )
     }
 
+    //You can use custom UI Components or Semantics to show a custom loading state
+
     if (!event) {
         return (
             <>
                 <div>Loading...</div>
             </>
         )
+    }
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setValue(prevState => ({ ...prevState, [name]: value }));
+    }
+
+    const onPost = async () => {
+        try {
+            await PostComment(event.eventId, value).then(() => {
+                setValue('')
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const onLike = async () => {
+        try {
+            await LikeEvent(event.eventId)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -63,6 +97,7 @@ export default function EventPage() {
                                     <Header.Content>{event.eventName}</Header.Content>
                                     <Header.Subheader>{event.eventCategory}</Header.Subheader>
                                 </Header>
+                                <p>{event.eventType.map(type => (`#${type} `))}</p>
                                 <Header as="h4">Date and Time</Header>
                                 <p>{event.startDate} {event.startTime} - {event.endDate} {event.endTime}</p>
                                 <Header as="h4">Address</Header>
@@ -75,11 +110,11 @@ export default function EventPage() {
                             <Grid.Column>
                                 <Button.Group icon>
                                     <Button as="div" labelPosition="right">
-                                        <Button>
+                                        <Button onClick={onLike}>
                                             <Icon name="heart" />
                                         </Button>
                                         <Label as='a' basic pointing='left'>
-                                            0
+                                            {event.likes ? event.likes : 0}
                                         </Label>
                                     </Button>
                                     <Modal
@@ -89,7 +124,7 @@ export default function EventPage() {
                                                     <Icon name="chat" />
                                                 </Button>
                                                 <Label as='a' basic pointing='left'>
-                                                    0
+                                                    {event.comments ? event.comments : 0}
                                                 </Label>
                                             </Button>
                                         }
@@ -99,11 +134,11 @@ export default function EventPage() {
                                         <Modal.Content image scrolling>
                                             <Modal.Description>
                                                 <Comment.Group>
-                                                    <EventComments />
+                                                    <EventComments eventId={event.eventId} />
                                                 </Comment.Group>
-                                                <Form>
-                                                    <Form.TextArea />
-                                                    <Button primary>Send Message</Button>
+                                                <Form onSubmit={onPost}>
+                                                    <Form.TextArea name="comment" placeholder="Enter comment..." value={value.comment} onChange={onChange} required />
+                                                    <Button primary type="submit">Send Message</Button>
                                                 </Form>
                                             </Modal.Description>
                                         </Modal.Content>
@@ -140,18 +175,40 @@ export default function EventPage() {
     )
 }
 
-const EventComments = () => {
+const EventComments = (props) => {
+    const { eventId } = props
+    const fetcher = url => axios.get(url).then(res => res.data)
+
+    const { data: comments, error } = useSWR(() => '/api/event/comments/' + eventId, fetcher)
+
+    if (error) {
+        return (
+            <>
+                <div>Error encountered...</div>
+            </>
+        )
+    }
+
+    if (!comments) {
+        return (
+            <>
+                <div>Loading...</div>
+            </>
+        )
+    }
+
     return (
         <>
-            <Comment>
+            {comments.map(comment =>
+            (<Comment key={comment.id}>
                 <Comment.Content>
                     <Comment.Avatar src="" />
-                    <Comment.Text>Text comment for use-case scenario</Comment.Text>
+                    <Comment.Text>{comment.message}</Comment.Text>
                     <Comment.Metadata>
-                        Aug 11th, 2021
+                        {moment(comment.createdDate._seconds * 1000).format("MMM DD, YYYY")}
                     </Comment.Metadata>
                 </Comment.Content>
-            </Comment>
+            </Comment>))}
         </>
     )
 }
@@ -159,6 +216,24 @@ const EventComments = () => {
 const Ticket = (props) => {
 
     const { ticket } = props
+
+    const [data, setData] = useState({
+        name: '',
+        email: '',
+        quantity: 1
+    })
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setData(prevState => ({ ...prevState, [name]: value }));
+    }
+
+    // Check https://monetbil.com Documentation to know more about their payment API..
+    // It is straight forward and only serves via https protocol ..
+    const mobileUrl = 'https://api.monetbil.com/widget/v2.1/' + process.env.NEXT_PUBLIC_MONETBIL_SERVICE_KEY + '?amount=' + 5000
+
+    // Optionally you can validate emails using this Regex Pattern 
+    // var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
     return (
         <>
@@ -172,24 +247,25 @@ const Ticket = (props) => {
                 <Modal.Header>Purchase Ticket</Modal.Header>
                 <Modal.Content image scrolling>
                     <Grid stackable container textAlign="center">
+                        {!ticket && <p>Ticket is free hence no purchase needed.</p>}
                         <Grid.Row>
                             <Grid.Column>
                                 <Form>
                                     <Form.Group widths='equal'>
-                                        <Form.Input label="Quantity" type="number" min={1} />
-                                        <Form.Input label="Name" type="text" />
-                                        <Form.Input label="Email Address" type="email" />
+                                        <Form.Input label="Quantity" type="number" name="quantity" min={1} value={data.quantity} onChange={onChange} />
+                                        <Form.Input label="Name" type="text" name="name" value={data.name} onChange={onChange} />
+                                        <Form.Input label="Email Address" type="email" name="email" value={data.email} onChange={onChange} />
                                     </Form.Group>
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                <Button>Mobile Payment</Button>
+                                <Button as="a" href={mobileUrl} secondary target="_blank" rel="noreferrer" disabled={ticket ? false : true}>Mobile Payment</Button>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <PaypalButton />
+                            <PaypalButton ticket={ticket} name={data.name} quantity={data.quantity} email={data.email} />
                         </Grid.Row>
                     </Grid>
                 </Modal.Content>
@@ -232,13 +308,13 @@ const MapView = (props) => {
                     positionOptions={{ enableHighAccuracy: true }}
                     trackUserLocation={true}
                 />
-                <Marker longitude={-122.4} latitude={37.8} offsetLeft={-20} offsetTop={-10}>
+                <Marker longitude={long} latitude={lat} offsetLeft={-20} offsetTop={-10}>
                     <Icon name='map pin' color='red' />
                 </Marker>
 
                 <Popup
-                    latitude={37.8}
-                    longitude={-122.4}
+                    latitude={lat}
+                    longitude={long}
                     closeButton={true}
                     closeOnClick={false}
                     onClose={() => setShowPop(false)}
@@ -249,6 +325,8 @@ const MapView = (props) => {
         </>
     )
 }
+
+//Optionally you can render all the event pages on build time via SSG
 
 // export async function getStaticPaths() {
 //     const events = await fetch('http://localhost:3000/api/event')

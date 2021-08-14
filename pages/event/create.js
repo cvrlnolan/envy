@@ -92,7 +92,7 @@ export default function CreateEvent() {
             setError('No image selected, please choose an image for your event')
             return
         }
-        const geoLocation = url + `${value.eventStreet} ${value.eventCity} ${value.eventProvince} ${eventCountry}` + '&key=31ce9ff9efb94ec8a10f32994be7f6a3' + '&pretty=1' + '&no_annotations=1'
+        const geoLocation = url + `${value.eventStreet} ${value.eventCity} ${value.eventProvince} ${eventCountry}` + '&key=' + process.env.NEXT_PUBLIC_OPENCAGE_API_KEY + '&pretty=1' + '&no_annotations=1'
         await axios.get(geoLocation).then((res) => {
             const data = {
                 ...value,
