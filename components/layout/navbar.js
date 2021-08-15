@@ -12,8 +12,6 @@ import {
 
 import Link from "next/link"
 
-import Footer from "@/components/layout/footer"
-
 class Navbar extends Component {
     state = {
         dropdownMenuStyle: {
@@ -38,95 +36,96 @@ class Navbar extends Component {
 
         return (
             // Application's main container
-            <div>
-                {/* Desktop and tablet navigation */}
-                <Grid padded className="tablet computer only">
-                    <Menu borderless fluid fixed="top" size="huge">
-                        <Container>
-                            <Menu.Item header>
+            <>
+                <div>
+                    {/* Desktop and tablet navigation */}
+                    <Grid padded className="tablet computer only">
+                        <Menu borderless fluid fixed="top" size="huge">
+                            <Container>
+                                <Menu.Item header>
+                                    Envy
+                                </Menu.Item>
+                                <Link href='/' passHref>
+                                    <Menu.Item as="a">
+                                        Events
+                                    </Menu.Item>
+                                </Link>
+                                <Link href='/venues' passHref>
+                                    <Menu.Item as="a">Venues</Menu.Item>
+                                </Link>
+                                <Dropdown item text="Create">
+                                    <Dropdown.Menu>
+                                        <Link href='/event/create' passHref>
+                                            <Dropdown.Item key="event" as="a">
+                                                Event
+                                            </Dropdown.Item>
+                                        </Link>
+                                        <Link href='/venue/create' passHref>
+                                            <Dropdown.Item key="venue" as="a">
+                                                Venue
+                                            </Dropdown.Item>
+                                        </Link>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                <Link href='https://github.com/cvrlnolan/envy' passHref>
+                                    <Menu.Item as="a" target="_blank">Repository</Menu.Item>
+                                </Link>
+                            </Container>
+                        </Menu>
+                    </Grid>
+                    {/* Mobile Navigation for responsiveness */}
+                    <Grid padded className="mobile only">
+                        <Menu borderless fluid fixed="top" size="huge">
+                            <Menu.Item header as="a">
                                 Envy
                             </Menu.Item>
-                            <Link href='/' passHref>
-                                <Menu.Item as="a">
-                                    Events
+                            <Menu.Menu position="right">
+                                <Menu.Item>
+                                    <Button
+                                        icon
+                                        basic
+                                        toggle
+                                        onClick={this.handleToggleDropdownMenu}
+                                    >
+                                        <Icon name="content" />
+                                    </Button>
                                 </Menu.Item>
-                            </Link>
-                            <Link href='/venues' passHref>
-                                <Menu.Item as="a">Venues</Menu.Item>
-                            </Link>
-                            <Dropdown item text="Create">
-                                <Dropdown.Menu>
-                                    <Link href='/event/create' passHref>
-                                        <Dropdown.Item key="event" as="a">
-                                            Event
-                                        </Dropdown.Item>
-                                    </Link>
-                                    <Link href='/venue/create' passHref>
-                                        <Dropdown.Item key="venue" as="a">
-                                            Venue
-                                        </Dropdown.Item>
-                                    </Link>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                            <Link href='https://github.com/cvrlnolan/envy' passHref>
-                                <Menu.Item as="a" target="_blank">Repository</Menu.Item>
-                            </Link>
-                        </Container>
-                    </Menu>
-                </Grid>
-                {/* Mobile Navigation for responsiveness */}
-                <Grid padded className="mobile only">
-                    <Menu borderless fluid fixed="top" size="huge">
-                        <Menu.Item header as="a">
-                            Envy
-                        </Menu.Item>
-                        <Menu.Menu position="right">
-                            <Menu.Item>
-                                <Button
-                                    icon
-                                    basic
-                                    toggle
-                                    onClick={this.handleToggleDropdownMenu}
-                                >
-                                    <Icon name="content" />
-                                </Button>
-                            </Menu.Item>
-                        </Menu.Menu>
-                        <Menu
-                            vertical
-                            borderless
-                            fluid
-                            style={this.state.dropdownMenuStyle}
-                        >
-                            <Link href='/' passHref><Menu.Item as="a">Events</Menu.Item></Link>
-                            <Link href='/venues' passHref><Menu.Item as="a">Venues</Menu.Item></Link>
-                            <Dropdown item text="Create">
-                                <Dropdown.Menu>
-                                    <Link href='/event/create' passHref>
-                                        <Dropdown.Item key="event" as="a">
-                                            Event
-                                        </Dropdown.Item>
-                                    </Link>
-                                    <Link href='/venue/create' passHref>
-                                        <Dropdown.Item key="venue" as="a">
-                                            Venue
-                                        </Dropdown.Item>
-                                    </Link>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                            <Link href='https://github.com/cvrlnolan/envy' passHref><Menu.Item as="a" target="_blank">Repository</Menu.Item></Link>
+                            </Menu.Menu>
+                            <Menu
+                                vertical
+                                borderless
+                                fluid
+                                style={this.state.dropdownMenuStyle}
+                            >
+                                <Link href='/' passHref><Menu.Item as="a">Events</Menu.Item></Link>
+                                <Link href='/venues' passHref><Menu.Item as="a">Venues</Menu.Item></Link>
+                                <Dropdown item text="Create">
+                                    <Dropdown.Menu>
+                                        <Link href='/event/create' passHref>
+                                            <Dropdown.Item key="event" as="a">
+                                                Event
+                                            </Dropdown.Item>
+                                        </Link>
+                                        <Link href='/venue/create' passHref>
+                                            <Dropdown.Item key="venue" as="a">
+                                                Venue
+                                            </Dropdown.Item>
+                                        </Link>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                <Link href='https://github.com/cvrlnolan/envy' passHref><Menu.Item as="a" target="_blank">Repository</Menu.Item></Link>
+                            </Menu>
                         </Menu>
-                    </Menu>
-                </Grid>
-                <Divider hidden section />
-                <br />
-                <Container text textAlign="center">
-                    {/* Rest of the application here .. */}
-                    {children}
-                </Container>
-                <Divider hidden section />
-                <Footer />
-            </div>
+                    </Grid>
+                    <Divider hidden section />
+                    <br />
+                    <Container text textAlign="center">
+                        {/* Rest of the application here .. */}
+                        {children}
+                    </Container>
+                    <Divider hidden section />
+                </div>
+            </>
         );
     }
 }
