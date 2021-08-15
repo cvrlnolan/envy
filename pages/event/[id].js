@@ -97,7 +97,7 @@ export default function EventPage() {
                         <Grid.Row columns={2}>
                             <Grid.Column>
                                 {/* Alternatively use next/image component for more optimization purposes */}
-                                <Image src={event.eventImgUrl} alt="test_image" wrapped ui={false} rounded className='page_image' />
+                                <Image centered src={event.eventImgUrl} alt="test_image" wrapped rounded className='page_image' />
                             </Grid.Column>
                             <Grid.Column>
                                 <Header>
