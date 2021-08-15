@@ -28,7 +28,7 @@ const VenueCard = ({ venue }) => {
                         <Image
                             src={venue.venueImgUrl}
                             alt="test_image"
-                            wrapped ui={false}
+                            wrapped
                             className='card_image'
                         />
                         <Card.Content>

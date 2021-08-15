@@ -28,7 +28,6 @@ const EventCard = ({ event }) => {
                             src={event.eventImgUrl}
                             alt="test_image"
                             wrapped
-                            ui={false}
                             className='card_image'
                         />
                         <Card.Content>
