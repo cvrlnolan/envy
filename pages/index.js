@@ -1,23 +1,23 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head"
+import Link from "next/link"
 import {
   Grid,
   Card,
   Button
 } from "semantic-ui-react"
 
-import Navbar from '@/components/layout/navbar'
-import EventCard from '@/components/event/eventCard'
-import LoadingCard from '@/components/layout/loadingCard'
-import axios from 'axios';
-import useSWR from 'swr';
+import Navbar from "@/components/layout/navbar"
+import EventCard from "@/components/event/eventCard"
+import LoadingCard from "@/components/layout/loadingCard"
+import axios from "axios";
+import useSWR from "swr";
 
 
 export default function Home() {
 
   const fetcher = url => axios.get(url).then(res => res.data)
 
-  const { data: events, error } = useSWR('/api/event/', fetcher)
+  const { data: events, error } = useSWR("/api/event/", fetcher) //Fetch data while keeping the UI reactive.
 
   if (error) {
     return (

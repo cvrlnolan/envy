@@ -1,14 +1,14 @@
-import { db } from '@/firebase/firebaseAdminInit'
+import { db } from "@/firebase/firebaseAdminInit";
 
 export default async function handler(req, res) {
 
-    const { id } = req.query
+    const { id } = req.query;
 
     try {
-        const venue = await db.collection("Venues").doc(id).get()
-        res.status(200).json(venue.data())
+        const venue = await db.collection("Venues").doc(id).get();
+        res.status(200).json(venue.data());
     } catch (e) {
-        console.log(e)
-        res.status(400).end()
+        console.log(e);
+        res.status(400).end();
     }
 }

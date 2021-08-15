@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head"
 import {
     Segment,
     Grid,
@@ -13,44 +13,44 @@ import {
     Popup,
     Checkbox,
     Message
-} from 'semantic-ui-react'
-import Navbar from '@/components/layout/navbar'
-import { useState, createRef } from 'react'
-import Compressor from 'compressorjs'
-import axios from 'axios'
+} from "semantic-ui-react"
+import Navbar from "@/components/layout/navbar"
+import { useState, createRef } from "react"
+import Compressor from "compressorjs"
+import axios from "axios"
 
 import {
     DateInput,
     TimeInput,
-} from 'semantic-ui-calendar-react'
+} from "semantic-ui-calendar-react"
 
-import { countryOptions } from '@/assets/countries'
-import { categories } from '@/assets/eventCategories'
-import { types } from '@/assets/eventTypes'
-import { extensions } from '@/assets/phoneExtensions'
-import InsertEvent from '@/firebase/event/createEvent'
+import { countryOptions } from "@/assets/countries"
+import { categories } from "@/assets/eventCategories"
+import { types } from "@/assets/eventTypes"
+import { extensions } from "@/assets/phoneExtensions"
+import InsertEvent from "@/firebase/event/createEvent"
 
 export default function CreateEvent() {
 
     const [value, setValue] = useState({
-        eventName: '',
-        eventPhone: '',
-        eventEmail: '',
-        eventVenue: '',
-        eventStreet: '',
-        eventCity: '',
-        eventProvince: '',
-        eventDetails: ''
+        eventName: "",
+        eventPhone: "",
+        eventEmail: "",
+        eventVenue: "",
+        eventStreet: "",
+        eventCity: "",
+        eventProvince: "",
+        eventDetails: ""
     })
     const [eventCategory, setCategory] = useState()
     const [eventType, setType] = useState([])
     const [eventCountry, setCountry] = useState()
     const [phoneExt, setExt] = useState()
 
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-    const [startTime, setStartTime] = useState('')
-    const [endTime, setEndTime] = useState('')
+    const [startDate, setStartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
 
     const [image, setImage] = useState()
     const [prevUrl, setPrevUrl] = useState()
@@ -81,7 +81,7 @@ export default function CreateEvent() {
         }
     }
 
-    const url = 'https://api.opencagedata.com/geocode/v1/json?q='
+    const url = "https://api.opencagedata.com/geocode/v1/json?q="
 
     const onCreate = async () => {
         setLoading(true)
@@ -89,10 +89,12 @@ export default function CreateEvent() {
         setSuccess(false)
         if (!image) {
             setLoading(false)
-            setError('No image selected, please choose an image for your event')
+            setError("No image selected, please choose an image for your event")
             return
         }
-        const geoLocation = url + `${value.eventStreet} ${value.eventCity} ${value.eventProvince} ${eventCountry}` + '&key=' + process.env.NEXT_PUBLIC_OPENCAGE_API_KEY + '&pretty=1' + '&no_annotations=1'
+        //Bad practise .. Line exceeds 80 characters .. 
+        const geoLocation = url + `${value.eventStreet} ${value.eventCity} ${value.eventProvince} ${eventCountry}` + "&key=" + process.env.NEXT_PUBLIC_OPENCAGE_API_KEY + "&pretty=1" + "&no_annotations=1"
+
         await axios.get(geoLocation).then((res) => {
             const data = {
                 ...value,
@@ -111,14 +113,14 @@ export default function CreateEvent() {
             InsertEvent(image, data).then(() => {
                 setLoading(false)
                 setSuccess(true)
-                setValue('')
+                setValue("")
                 setCategory()
                 setType([])
                 setExt()
-                setStartDate('')
-                setEndDate('')
-                setStartTime('')
-                setEndTime('')
+                setStartDate("")
+                setEndDate("")
+                setStartTime("")
+                setEndTime("")
                 setTickets(false)
             })
         }).catch((e) => {

@@ -1,5 +1,5 @@
 import { createTransport } from "nodemailer";
-const hbs = require('nodemailer-express-handlebars');
+const hbs = require("nodemailer-express-handlebars");
 
 const getEmailData = (mailDetails, template) => {
     let data = null;
@@ -10,12 +10,12 @@ const getEmailData = (mailDetails, template) => {
                 from: "Envy <evny@envymail.com>",
                 to: mailDetails.userEmail,
                 subject: "Purchase Confirmation",
-                template: 'purchase',
+                template: "purchase",
                 context: {
                     name: mailDetails.name,
                     amount: mailDetails.amount
                 },
-                text: 'Your ticket purchase has been confirmed successfully'
+                text: "Your ticket purchase has been confirmed successfully"
             }
             break;
 
@@ -37,12 +37,12 @@ export const sendEmail = (mailDetails, type) => {
         }
     });
 
-    smtpTransport.use('compile', hbs({
+    smtpTransport.use("compile", hbs({
         viewEngine: {
             partialsDir: "./components/mailService/mailTemplates/",
             defaultLayout: ""
         },
-        viewPath: './components/mailService/mailTemplates/',
+        viewPath: "./components/mailService/mailTemplates/",
         extName: ".handlebars"
     }));
 
@@ -61,9 +61,9 @@ export const sendEmail = (mailDetails, type) => {
         if (error) {
             console.log(error)
         } else {
-            console.log(" email sent successfully")
+            console.log("email sent successfully")
         }
         smtpTransport.close();
-    })
+    });
 
 }

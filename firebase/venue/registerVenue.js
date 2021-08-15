@@ -1,12 +1,12 @@
-import firebase from '@/firebase/firebaseClientInit'
+import firebase from "@/firebase/firebaseClientInit"
 
-const db = firebase.firestore()
-const storage = firebase.storage()
-const storageRef = storage.ref()
+const db = firebase.firestore();
+const storage = firebase.storage();
+const storageRef = storage.ref();
 
 export default async function InsertVenue(imageData, venueData) {
 
-    const venueRef = db.collection("Venues").doc()
+    const venueRef = db.collection("Venues").doc(); //Create document reference.
 
     async function insert(image, venue) {
         try {
@@ -23,12 +23,12 @@ export default async function InsertVenue(imageData, venueData) {
                 })
             })
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }
 
-    if (typeof window !== 'undefined') {
-        await insert(imageData, venueData)
+    if (typeof window !== "undefined") {
+        await insert(imageData, venueData);
     }
 
 }

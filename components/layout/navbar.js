@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
 import {
     Button,
@@ -8,9 +8,11 @@ import {
     Divider,
     Icon,
     Menu,
-} from "semantic-ui-react";
+} from "semantic-ui-react"
 
-import Link from 'next/link'
+import Link from "next/link"
+
+import Footer from "@/components/layout/footer"
 
 class Navbar extends Component {
     state = {
@@ -35,7 +37,9 @@ class Navbar extends Component {
         const { children } = this.props
 
         return (
+            // Application's main container
             <div>
+                {/* Desktop and tablet navigation */}
                 <Grid padded className="tablet computer only">
                     <Menu borderless fluid fixed="top" size="huge">
                         <Container>
@@ -70,6 +74,7 @@ class Navbar extends Component {
                         </Container>
                     </Menu>
                 </Grid>
+                {/* Mobile Navigation for responsiveness */}
                 <Grid padded className="mobile only">
                     <Menu borderless fluid fixed="top" size="huge">
                         <Menu.Item header as="a">
@@ -116,9 +121,11 @@ class Navbar extends Component {
                 <Divider hidden section />
                 <br />
                 <Container text textAlign="center">
+                    {/* Rest of the application here .. */}
                     {children}
                 </Container>
                 <Divider hidden section />
+                <Footer />
             </div>
         );
     }

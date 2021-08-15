@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head"
 import {
     Segment,
     Grid,
@@ -11,30 +11,30 @@ import {
     Dropdown,
     Divider,
     Message
-} from 'semantic-ui-react'
-import Navbar from '@/components/layout/navbar'
-import { TimeInput } from 'semantic-ui-calendar-react'
-import { useState, createRef } from 'react'
-import Compressor from 'compressorjs';
-import axios from 'axios'
+} from "semantic-ui-react"
+import Navbar from "@/components/layout/navbar"
+import { TimeInput } from "semantic-ui-calendar-react"
+import { useState, createRef } from "react"
+import Compressor from "compressorjs";
+import axios from "axios"
 
-import { categories } from '@/assets/venueCategories'
-import { specialities } from '@/assets/venueSpecialities'
-import { days } from '@/assets/weekDays'
-import { countryOptions } from '@/assets/countries'
-import { extensions } from '@/assets/phoneExtensions'
-import InsertVenue from '@/firebase/venue/registerVenue'
+import { categories } from "@/assets/venueCategories"
+import { specialities } from "@/assets/venueSpecialities"
+import { days } from "@/assets/weekDays"
+import { countryOptions } from "@/assets/countries"
+import { extensions } from "@/assets/phoneExtensions"
+import InsertVenue from "@/firebase/venue/registerVenue"
 
 export default function CreateVenue() {
 
     const [value, setValue] = useState({
-        venueName: '',
-        venueStreet: '',
-        venueProvince: '',
-        venueCity: '',
-        venueDetails: '',
-        venuePhone: '',
-        venueEmail: ''
+        venueName: "",
+        venueStreet: "",
+        venueProvince: "",
+        venueCity: "",
+        venueDetails: "",
+        venuePhone: "",
+        venueEmail: ""
     })
 
     const [venueCategory, setCategory] = useState()
@@ -44,10 +44,10 @@ export default function CreateVenue() {
     const [openingDays, setOpeningDays] = useState([])
     const [exceptionalDays, setExceptionalDays] = useState([])
 
-    const [openingTime, setOpeningTime] = useState('')
-    const [closingTime, setClosingTime] = useState('')
-    const [excepOpenTime, setExcepOpenTime] = useState('')
-    const [excepClosingTime, setExcepClosingTime] = useState('')
+    const [openingTime, setOpeningTime] = useState("")
+    const [closingTime, setClosingTime] = useState("")
+    const [excepOpenTime, setExcepOpenTime] = useState("")
+    const [excepClosingTime, setExcepClosingTime] = useState("")
 
     const [image, setImage] = useState()
     const [prevUrl, setPrevUrl] = useState()
@@ -76,7 +76,7 @@ export default function CreateVenue() {
         }
     }
 
-    const url = 'https://api.opencagedata.com/geocode/v1/json?q='
+    const url = "https://api.opencagedata.com/geocode/v1/json?q="
 
     const onRegister = async () => {
         setLoading(true)
@@ -84,10 +84,11 @@ export default function CreateVenue() {
         setSuccess(false)
         if (!image) {
             setLoading(false)
-            setError('No image selected, please choose an image for your event')
+            setError("No image selected, please choose an image for your event")
             return
         }
-        const geoLocation = url + `${value.venueStreet} ${value.venueCity} ${value.venueProvince} ${venueCountry}` + '&key=' + process.env.NEXT_PUBLIC_OPENCAGE_API_KEY + '&pretty=1' + '&no_annotations=1'
+        //Bad practise .. Line exceeds 80 characters .. 
+        const geoLocation = url + `${value.venueStreet} ${value.venueCity} ${value.venueProvince} ${venueCountry}` + "&key=" + process.env.NEXT_PUBLIC_OPENCAGE_API_KEY + "&pretty=1" + "&no_annotations=1"
         await axios.get(geoLocation).then((res) => {
             const data = {
                 ...value,
@@ -106,17 +107,17 @@ export default function CreateVenue() {
             InsertVenue(image, data).then(() => {
                 setLoading(false)
                 setSuccess(true)
-                setValue('')
+                setValue("")
                 setCategory()
                 setSpecialty([])
                 setCountry()
                 setExt()
                 setOpeningDays([])
                 setExceptionalDays([])
-                setOpeningTime('')
-                setExcepOpenTime('')
-                setClosingTime('')
-                setExcepClosingTime('')
+                setOpeningTime("")
+                setExcepOpenTime("")
+                setClosingTime("")
+                setExcepClosingTime("")
             })
         }).catch((e) => {
             setLoading(false)

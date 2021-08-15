@@ -14,7 +14,7 @@ const EventCard = ({ event }) => {
 
     let trimString = function (string, length) {
         return string.length > length ?
-            string.substring(0, length) + '...' :
+            string.substring(0, length) + "..." :
             string;
     };
 
@@ -23,7 +23,14 @@ const EventCard = ({ event }) => {
             <Modal
                 trigger={
                     <Card link>
-                        <Image src={event.eventImgUrl} alt="test_image" wrapped ui={false} className='card_image' />
+                        {/* Alternatively use next/image component for more optimization purposes */}
+                        <Image
+                            src={event.eventImgUrl}
+                            alt="test_image"
+                            wrapped
+                            ui={false}
+                            className='card_image'
+                        />
                         <Card.Content>
                             <Card.Header>{event.eventName}</Card.Header>
                             <Card.Meta>{event.startDate}</Card.Meta>
@@ -45,7 +52,13 @@ const EventCard = ({ event }) => {
             >
                 <Modal.Header>{event.eventName}</Modal.Header>
                 <Modal.Content image scrolling>
-                    <Image wrapped src={event.eventImgUrl} alt="event_image" rounded className='modal_image' />
+                    {/* Alternatively use next/image component for more optimization purposes */}
+                    <Image
+                        wrapped
+                        src={event.eventImgUrl}
+                        alt="event_image"
+                        rounded
+                        className='modal_image' />
                     <Modal.Description>
                         <Grid container stackable>
                             <Grid.Row>

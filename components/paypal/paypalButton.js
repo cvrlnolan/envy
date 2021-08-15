@@ -1,7 +1,7 @@
 import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
-import { useState, useEffect } from 'react'
-import { Loader } from 'semantic-ui-react'
-import axios from 'axios'
+import { useState, useEffect } from "react"
+import { Loader } from "semantic-ui-react"
+import axios from "axios"
 
 const PaypalButton = (props) => {
 
@@ -44,7 +44,8 @@ const PaypalButton = (props) => {
             userEmail: email
         }
         return actions.order.capture().then(function (details) {
-            axios.post('/api/event/purchase', mailDetails) //Send Mail to client after successful purchase..
+            axios.post("/api/event/purchase", mailDetails) //Send Mail to client after successful purchase..
+            //Also deduce number of tickets bought from firestore document .. Left that function out purposely.
             console.log(details)
         });
     }

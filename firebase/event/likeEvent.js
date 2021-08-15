@@ -1,10 +1,10 @@
-import firebase from '@/firebase/firebaseClientInit'
+import firebase from "@/firebase/firebaseClientInit";
 
-const db = firebase.firestore()
+const db = firebase.firestore();
 
 export default async function LikeEvent(eventId) {
 
-    const eventRef = db.collection("Events").doc(eventId)
+    const eventRef = db.collection("Events").doc(eventId); //Create document reference.
 
     async function like() {
         try {
@@ -16,8 +16,8 @@ export default async function LikeEvent(eventId) {
         }
     }
 
-    if (typeof window !== 'undefined') {
-        await like()
+    if (typeof window !== "undefined") {
+        await like();
     }
 
 }

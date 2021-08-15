@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Navbar from '@/components/layout/navbar'
+import Head from "next/head"
+import Navbar from "@/components/layout/navbar"
 import {
     Segment,
     Grid,
@@ -11,20 +11,26 @@ import {
     Modal,
     Form,
     Comment
-} from 'semantic-ui-react'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import useSWR from 'swr'
-import moment from 'moment'
+} from "semantic-ui-react"
+import { useState } from "react"
+import { useRouter } from "next/router"
+import axios from "axios"
+import useSWR from "swr"
+import moment from "moment"
 
-import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
+import MapGL,
+{
+    Marker,
+    Popup,
+    GeolocateControl,
+    NavigationControl
+} from "react-map-gl"
 
-import PaypalButton from '@/components/paypal/paypalButton'
+import PaypalButton from "@/components/paypal/paypalButton"
 
-import LikeEvent from '@/firebase/event/likeEvent'
+import LikeEvent from "@/firebase/event/likeEvent"
 
-import PostComment from '@/firebase/event/postComment'
+import PostComment from "@/firebase/event/postComment"
 
 export default function EventPage() {
 
@@ -32,12 +38,12 @@ export default function EventPage() {
     const { id } = router.query
 
     const [value, setValue] = useState({
-        comment: ''
+        comment: ""
     })
 
     const fetcher = url => axios.get(url).then(res => res.data)
 
-    const { data: event, error } = useSWR(() => '/api/event/' + id, fetcher)
+    const { data: event, error } = useSWR(() => "/api/event/" + id, fetcher) //Fetch data while keeping the UI reactive.
 
     if (error) {
         return (
@@ -90,6 +96,7 @@ export default function EventPage() {
                     <Grid container centered stackable>
                         <Grid.Row columns={2}>
                             <Grid.Column>
+                                {/* Alternatively use next/image component for more optimization purposes */}
                                 <Image src={event.eventImgUrl} alt="test_image" wrapped ui={false} rounded className='page_image' />
                             </Grid.Column>
                             <Grid.Column>

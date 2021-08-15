@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Navbar from '@/components/layout/navbar'
+import Head from "next/head"
+import Navbar from "@/components/layout/navbar"
 import {
     Segment,
     Grid,
@@ -12,20 +12,26 @@ import {
     Rating,
     Form,
     Comment
-} from 'semantic-ui-react'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import useSWR from 'swr'
-import moment from 'moment'
+} from "semantic-ui-react"
+import { useState } from "react"
+import { useRouter } from "next/router"
+import axios from "axios"
+import useSWR from "swr"
+import moment from "moment"
 
-import MapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl'
+import MapGL,
+{
+    Marker,
+    Popup,
+    GeolocateControl,
+    NavigationControl
+} from "react-map-gl"
 
-import LikeVenue from '@/firebase/venue/likeVenue'
+import LikeVenue from "@/firebase/venue/likeVenue"
 
-import PostReview from '@/firebase/venue/postReview'
+import PostReview from "@/firebase/venue/postReview"
 
-import RateVenue from '@/firebase/venue/rateVenue'
+import RateVenue from "@/firebase/venue/rateVenue"
 
 export default function VenuePage() {
 
@@ -33,12 +39,12 @@ export default function VenuePage() {
     const { id } = router.query
 
     const [value, setValue] = useState({
-        review: ''
+        review: ""
     })
 
     const fetcher = url => axios.get(url).then(res => res.data)
 
-    const { data: venue, error } = useSWR(() => '/api/venue/' + id, fetcher)
+    const { data: venue, error } = useSWR(() => "/api/venue/" + id, fetcher) //Fetch data while keeping the UI reactive.
 
     if (error) {
         return (
@@ -99,6 +105,7 @@ export default function VenuePage() {
                     <Grid container centered stackable>
                         <Grid.Row columns={2}>
                             <Grid.Column>
+                                {/* Alternatively use next/image component for more optimization purposes */}
                                 <Image src={venue.venueImgUrl} alt="test_image" wrapped ui={false} rounded className='page_image' />
                             </Grid.Column>
                             <Grid.Column>
