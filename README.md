@@ -19,12 +19,12 @@ git clone https://github.com/cvrlnolan/envy
 
 2. Next, you need to setup the `.env` file found in the root with the appropriate API Keys from the following service providers:
 
-[Google Firebase](https://firebase.google.com/)
-[Paypal Developer](https://developer.paypal.com/)
-[Monetbil](https://monetbil.com) (Optionally used for Mobile Money modes of payment)
-[Mapbox](https://www.mapbox.com/)
-[Mailtrap](https://mailtrap.io/)
-[OpenCage Data](https://opencagedata.com/)
+- [Google Firebase](https://firebase.google.com/)
+- [Paypal Developer](https://developer.paypal.com/)
+- [Monetbil](https://monetbil.com) (Optionally used for Mobile Money modes of payment)
+- [Mapbox](https://www.mapbox.com/)
+- [Mailtrap](https://mailtrap.io/)
+- [OpenCage Data](https://opencagedata.com/)
 
 3. Install all the dependency packages found in the `package.json` file by running `yarn install` or `npm install` from the project root directory.
 
