@@ -95,6 +95,7 @@ export default function CreateVenue() {
                 venueCategory,
                 venueSpecialty,
                 venueCountry,
+                phoneExt,
                 openingDays,
                 exceptionalDays,
                 openingTime,
