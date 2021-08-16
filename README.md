@@ -17,7 +17,7 @@ This project's purpose is also to inspire other developers who are trying to dev
 git clone https://github.com/cvrlnolan/envy
 ```
 
-2. Next, you need to setup the `.env` file found in the root with the appropriate API Keys from the following service providers:
+2. Next, you need to setup the `.env` file found in the root with the appropriate API Keys & credentials from the following service providers:
 
 - [Google Firebase](https://firebase.google.com/)
 - [Paypal Developer](https://developer.paypal.com/)
@@ -87,7 +87,7 @@ This can serve as ground basis for any future ideas or use-case in this context 
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+![GitHub](https://img.shields.io/github/license/cvrlnolan/envy)
 
 ##
 
