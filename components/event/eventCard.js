@@ -80,7 +80,7 @@ const EventCard = ({ event }) => {
                                     <Header as="h4">Address</Header>
                                     <p>{event.eventVenue}, {event.eventStreet}</p>
                                     <p>{event.eventCity}, {event.eventProvince}</p>
-                                    <p>{event.eventProvince}</p>
+                                    <p>{event.eventCountry}</p>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
