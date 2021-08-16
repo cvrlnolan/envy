@@ -61,6 +61,7 @@ The application is organized from the root(`.`) as follows:
 - `./page/api` sub-folder(integrated by NextJS) contains serverless and NodeJS backend code for the application.
 - `./firebase/` folder contains the database initialization configurations and the subfolders contain database logical operations.
 - `./components/` folder contains coded UI layouts to be used through out the application.
+- `./components/mailService` sub-folder contains the mailing function component for sending emails and mail templates to use.
 - `./assets/` folder contains pre-defined data selections to be used by the appliction.
 - `./styles/` folder(integrated by NextJS) contains the global style of the application accessible by all components.
 - `./public/` folder(integrated by NextJS) contains global files to be shared through the application. You can store images here.
