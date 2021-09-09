@@ -19,4 +19,5 @@ module.exports = {
         "^.+\\.module\\.(css|sass|scss)$",
     ],
     testEnvironment: "jsdom",
+    verbose: true,
 }
