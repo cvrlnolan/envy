@@ -75,6 +75,16 @@ The code quality was tested with [JSLint](https://www.jslint.com/)
 
 You may eventually want to deploy a live version of your app in a future instance. [Vercel](https://vercel.com) platform is suitably built fo the deployment of NextJS application and more as they have an integrated environment to deploy directly from your own [Github Repository](https://github.com/new).
 
+### Tests
+
+The `tests` folder contains some major component Unit Test scripts which have been passed successfully to ensure the application functions and renders as it is intended to. Only the major components have been tested. You can decide to add more tests on your personal end.
+
+To run a test, type `npm run test` or `yarn test` including the test script you want to run ex:
+
+```bash
+yarn test index
+```
+
 ## Support
 
 If any worries, bugs or problem arises in the future, you can create an issue, contribute or contact me via:

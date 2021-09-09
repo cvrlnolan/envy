@@ -1,4 +1,9 @@
-import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
+import React from "react"
+import {
+    PayPalScriptProvider,
+    PayPalButtons,
+    usePayPalScriptReducer
+} from "@paypal/react-paypal-js"
 import { useState, useEffect } from "react"
 import { Loader } from "semantic-ui-react"
 import axios from "axios"
@@ -56,9 +61,18 @@ const PaypalButton = (props) => {
 
     return (
         <>
-            <PayPalScriptProvider deferLoading={true} options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_DEVELOPMENT_CLIENT_ID }}>
+            <PayPalScriptProvider
+                deferLoading={true}
+                options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_DEVELOPMENT_CLIENT_ID }}
+            >
                 <LoadScriptButton />
-                <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} disabled={ticket ? false : true} style={{ layout: "horizontal", color: "gold", shape: "pill" }} />
+                <PayPalButtons
+                    createOrder={createOrder}
+                    onApprove={onApprove}
+                    onError={onError}
+                    disabled={ticket ? false : true}
+                    style={{ layout: "horizontal", color: "gold", shape: "pill" }}
+                />
             </PayPalScriptProvider>
         </>
     )

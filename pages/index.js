@@ -1,3 +1,4 @@
+import React from "react"
 import Head from "next/head"
 import Link from "next/link"
 import {
@@ -35,10 +36,9 @@ export default function Home() {
         <Navbar>
           <Grid centered stackable columns='equal'>
             <Card.Group centered>
-              <LoadingCard />
-              <LoadingCard />
-              <LoadingCard />
-              <LoadingCard />
+              {[...Array(10)].map((e, i) => (
+                <LoadingCard key={i} />
+              ))}
             </Card.Group>
           </Grid>
         </Navbar>

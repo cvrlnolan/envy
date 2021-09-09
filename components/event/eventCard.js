@@ -1,3 +1,4 @@
+import React from "react"
 import {
     Grid,
     Header,
@@ -22,7 +23,7 @@ const EventCard = ({ event }) => {
         <>
             <Modal
                 trigger={
-                    <Card link>
+                    <Card data-testid="openModal" link>
                         {/* Alternatively use next/image component for more optimization purposes */}
                         <Image
                             src={event.eventImgUrl}

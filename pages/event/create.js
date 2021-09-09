@@ -1,3 +1,4 @@
+import React from "react"
 import Head from "next/head"
 import {
     Segment,
@@ -159,11 +160,33 @@ export default function CreateEvent() {
                             </Header>
                             <Form.Field required>
                                 <label>Event Title</label>
-                                <input placeholder='Title' name='eventName' value={value.eventName} onChange={onChange} required />
+                                <input
+                                    placeholder='Title'
+                                    name='eventName'
+                                    value={value.eventName}
+                                    onChange={onChange}
+                                    required
+                                />
                             </Form.Field>
                             <Form.Group>
-                                <Form.Dropdown selection label='Event Category' placeholder='Category' required options={categories} value={eventCategory} onChange={(e, { value }) => { setCategory(value) }} />
-                                <Form.Dropdown selection multiple label='Event Type' placeholder='Type' required options={types} value={eventType} onChange={(e, { value }) => { setType(value) }} />
+                                <Form.Dropdown
+                                    selection 
+                                    label='Event Category'
+                                    placeholder='Category'
+                                    required options={categories}
+                                    value={eventCategory}
+                                    onChange={(e, { value }) => { setCategory(value) }}
+                                />
+                                <Form.Dropdown
+                                    selection
+                                    multiple
+                                    label='Event Type'
+                                    placeholder='Type'
+                                    required
+                                    options={types}
+                                    value={eventType}
+                                    onChange={(e, { value }) => { setType(value) }}
+                                />
                             </Form.Group>
                             <Divider />
                             <Header>
@@ -173,14 +196,49 @@ export default function CreateEvent() {
                             </Header>
                             <Form.Field required width={10}>
                                 <label>Event Venue</label>
-                                <input placeholder="Venue" name='eventVenue' value={value.eventVenue} onChange={onChange} required />
+                                <input
+                                    placeholder="Venue"
+                                    name='eventVenue'
+                                    value={value.eventVenue}
+                                    onChange={onChange}
+                                    required
+                                />
                             </Form.Field>
-                            <Form.Input label='Street Address' placeholder='Street Address' name='eventStreet' value={value.eventStreet} onChange={onChange} required />
+                            <Form.Input
+                                label='Street Address'
+                                placeholder='Street Address'
+                                name='eventStreet'
+                                value={value.eventStreet}
+                                onChange={onChange}
+                                required
+                            />
                             <Form.Group>
-                                <Form.Input label='City' placeholder='City' required name='eventCity' value={value.eventCity} onChange={onChange} />
-                                <Form.Input label='State/Province' placeholder='State/Province' required name='eventProvince' value={value.eventProvince} onChange={onChange} />
+                                <Form.Input
+                                    label='City'
+                                    placeholder='City'
+                                    required
+                                    name='eventCity'
+                                    value={value.eventCity}
+                                    onChange={onChange}
+                                />
+                                <Form.Input
+                                    label='State/Province'
+                                    placeholder='State/Province'
+                                    required name='eventProvince'
+                                    value={value.eventProvince}
+                                    onChange={onChange}
+                                />
                             </Form.Group>
-                            <Form.Select label='Country' placeholder='Country' required width={6} name='eventCountry' value={eventCountry} options={countryOptions} onChange={(e, { value }) => { setCountry(value) }} />
+                            <Form.Select
+                                label='Country'
+                                placeholder='Country'
+                                required
+                                width={6}
+                                name='eventCountry'
+                                value={eventCountry}
+                                options={countryOptions}
+                                onChange={(e, { value }) => { setCountry(value) }}
+                            />
                             <Divider />
                             <Header>
                                 <Icon name='calendar alternate outline' color='grey' />
@@ -251,14 +309,38 @@ export default function CreateEvent() {
                                 <Header.Subheader>Throw more light by briefly telling your invitees what to expect as they choose to attend your event.</Header.Subheader>
                             </Header>
                             <Form.Field required>
-                                <Form.TextArea rows="8" name="eventDetails" value={value.eventDetails} onChange={onChange} required />
+                                <Form.TextArea
+                                    rows="8"
+                                    name="eventDetails"
+                                    value={value.eventDetails}
+                                    onChange={onChange}
+                                    data-testid="Description"
+                                    required
+                                />
                             </Form.Field>
                             <Form.Field required>
                                 <label>Choose the Main Image for your event</label>
-                                <Button secondary type='button' content='Select image' icon='camera' labelPosition='left' onClick={() => fileInputRef.current.click()} />
-                                <input ref={fileInputRef} type='file' hidden onChange={handleImageChange} />
+                                <Button
+                                    secondary
+                                    type='button'
+                                    content='Select image'
+                                    icon='camera'
+                                    labelPosition='left'
+                                    onClick={() => fileInputRef.current.click()}
+                                />
+                                <input
+                                    ref={fileInputRef}
+                                    type='file'
+                                    hidden
+                                    onChange={handleImageChange}
+                                />
                             </Form.Field>
-                            <Image src={prevUrl} centered alt="event_image_preview" size='large' rounded />
+                            <Image
+                                src={prevUrl}
+                                centered
+                                alt="event_image_preview"
+                                size='large' rounded
+                            />
                             <Divider />
                             <Header>
                                 <Icon name='user' color='grey' />
@@ -268,17 +350,43 @@ export default function CreateEvent() {
                             <Form.Group>
                                 <Form.Field width={7} required>
                                     <label>Organizer Email Address</label>
-                                    <Input placeholder='Email' name='eventEmail' required value={value.eventEmail} onChange={onChange} />
+                                    <Input
+                                        placeholder='Email'
+                                        name='eventEmail'
+                                        required
+                                        value={value.eventEmail}
+                                        onChange={onChange}
+                                    />
                                 </Form.Field>
                                 <Form.Field width={7} required>
                                     <label>Organizer Phone Number</label>
-                                    <Input label={<Dropdown inline search options={extensions} value={phoneExt} onChange={(e, { value }) => { setExt(value) }} />} labelPosition='left' name='eventPhone' value={value.eventPhone} onChange={onChange} />
+                                    <Input
+                                        label={
+                                            <Dropdown
+                                                inline
+                                                search
+                                                options={extensions}
+                                                value={phoneExt}
+                                                onChange={(e, { value }) => { setExt(value) }}
+                                            />}
+                                        labelPosition='left'
+                                        name='eventPhone'
+                                        value={value.eventPhone}
+                                        onChange={onChange}
+                                    />
                                 </Form.Field>
                             </Form.Group>
                             <Divider />
                             <Form.Field>
-                                <Popup content="If checked, a default number of 100 tickets will be sold for the event" trigger={<label>Tickets ?</label>} />
-                                <Checkbox toggle checked={tickets} onChange={() => { setTickets(!tickets) }} />
+                                <Popup
+                                    content="If checked, a default number of 100 tickets will be sold for the event"
+                                    trigger={<label>Tickets ?</label>}
+                                />
+                                <Checkbox
+                                    toggle
+                                    checked={tickets}
+                                    onChange={() => { setTickets(!tickets) }}
+                                />
                             </Form.Field>
                             <Divider />
                             <Form.Button type="submit" primary>Create Event</Form.Button>

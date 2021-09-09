@@ -1,0 +1,602 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Index page unchanged 1`] = `
+<div>
+  <div
+    className="ui padded grid tablet computer only"
+  >
+    <div
+      className="ui huge borderless fluid top fixed menu"
+    >
+      <div
+        className="ui container"
+      >
+        <div
+          className="header item"
+          onClick={[Function]}
+        >
+          Envy
+        </div>
+        <a
+          className="item"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Events
+        </a>
+        <a
+          className="item"
+          href="/venues"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Venues
+        </a>
+        <div
+          aria-expanded={false}
+          className="ui item dropdown"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="listbox"
+          tabIndex={0}
+        >
+          <div
+            aria-atomic={true}
+            aria-live="polite"
+            className="divider text"
+            role="alert"
+          >
+            Create
+          </div>
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <a
+              className="item"
+              href="/event/create"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              role="option"
+            >
+              Event
+            </a>
+            <a
+              className="item"
+              href="/venue/create"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              role="option"
+            >
+              Venue
+            </a>
+          </div>
+        </div>
+        <a
+          className="item"
+          href="https://github.com/cvrlnolan/envy"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          target="_blank"
+        >
+          Repository
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui padded grid mobile only"
+  >
+    <div
+      className="ui huge borderless fluid top fixed menu"
+    >
+      <a
+        className="header item"
+        onClick={[Function]}
+      >
+        Envy
+      </a>
+      <div
+        className="right menu"
+      >
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          <button
+            aria-pressed={false}
+            className="ui basic icon toggle button"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="content icon"
+              onClick={[Function]}
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        className="ui borderless fluid vertical menu"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <a
+          className="item"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Events
+        </a>
+        <a
+          className="item"
+          href="/venues"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Venues
+        </a>
+        <div
+          aria-expanded={false}
+          className="ui item dropdown"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="listbox"
+          tabIndex={0}
+        >
+          <div
+            aria-atomic={true}
+            aria-live="polite"
+            className="divider text"
+            role="alert"
+          >
+            Create
+          </div>
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <a
+              className="item"
+              href="/event/create"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              role="option"
+            >
+              Event
+            </a>
+            <a
+              className="item"
+              href="/venue/create"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              role="option"
+            >
+              Venue
+            </a>
+          </div>
+        </div>
+        <a
+          className="item"
+          href="https://github.com/cvrlnolan/envy"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          target="_blank"
+        >
+          Repository
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui hidden section divider"
+  />
+  <br />
+  <div
+    className="ui text center aligned container"
+  >
+    <div
+      className="ui centered stackable equal width grid"
+    >
+      <div
+        className="ui centered cards"
+      >
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui link card"
+          onClick={[Function]}
+        >
+          <div
+            className="ui placeholder"
+          >
+            <div
+              className="square image"
+            />
+            <div
+              className="content"
+            >
+              <div
+                className="ui placeholder"
+              >
+                <div
+                  className="header"
+                >
+                  <div
+                    className="line very short"
+                  />
+                  <div
+                    className="line medium"
+                  />
+                </div>
+                <div
+                  className="paragraph"
+                >
+                  <div
+                    className="line short"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui hidden section divider"
+  />
+</div>
+`;
