@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-
 import {
     Button,
     Container,
@@ -9,7 +8,6 @@ import {
     Icon,
     Menu,
 } from "semantic-ui-react"
-
 import Link from "next/link"
 
 class Navbar extends Component {
@@ -125,6 +123,27 @@ class Navbar extends Component {
                     </Container>
                     <Divider hidden section />
                 </div>
+                <footer>
+                    <Container>
+                        <p style={{
+                            fontWeight: "bold"
+                        }}
+                        >
+                            Developed by
+                            <Link href="https://carlnolan.lootyclub.com" passHref>
+                                <span
+                                    style={{
+                                        color: "#2c365e",
+                                        cursor: "pointer",
+                                        marginLeft: "4px"
+                                    }}
+                                >
+                                    Carl Nolan
+                                </span>
+                            </Link>
+                        </p>
+                    </Container>
+                </footer>
             </>
         );
     }
