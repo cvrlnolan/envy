@@ -51,8 +51,8 @@ Other important services & dependency libraries of the application include:
 - [@paypal/react-paypal-js](https://www.npmjs.com/package/@paypal/react-paypal-js): A library to easily integrate the Paypal Javascript SDK components and the Paypal Buttons to the application.
 - [compressorjs](https://fengyuanchen.github.io/compressorjs/): Javascript image compressor to compress images before uploading them to storage to have an optimized and servable version.
 - [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup): Mainly used in NextJS serverless functions as these functions are being called in a native NodeJS environment hence the Admin SDK is suitable to connect to Firebase services.
-- [react-map-gl](https://visgl.github.io/react-map-gl/): To render a map view based on recieved longitude and latitude parameters. 
-- [testing-library](https://testing-library.com/): This library provides simple and complete testing utilities to be implement in our test scripts. 
+- [react-map-gl](https://visgl.github.io/react-map-gl/): To render a map view based on recieved longitude and latitude parameters.
+- [testing-library](https://testing-library.com/): This library provides simple and complete testing utilities to be implement in our test scripts.
 - [jest](https://jestjs.io/): A JavaSript Testing Framework to run test scripts in the virtual environment of our application.
 
 ### Directives
@@ -105,7 +105,7 @@ This can serve as ground basis for any future ideas or use-case in this context 
 
 ##
 
-![GitHub last commit](https://img.shields.io/github/last-commit/cvrlnolan/envy) ![GitHub contributors](https://img.shields.io/github/contributors/cvrlnolan/envy) ![GitHub issues](https://img.shields.io/github/issues/cvrlnolan/envy) ![GitHub repo size](https://img.shields.io/github/repo-size/cvrlnolan/envy)
+![Codecov](https://img.shields.io/codecov/c/github/cvrlnolan/envy) ![GitHub last commit](https://img.shields.io/github/last-commit/cvrlnolan/envy) ![GitHub contributors](https://img.shields.io/github/contributors/cvrlnolan/envy) ![GitHub issues](https://img.shields.io/github/issues/cvrlnolan/envy) ![GitHub repo size](https://img.shields.io/github/repo-size/cvrlnolan/envy)
 
 ###
 
