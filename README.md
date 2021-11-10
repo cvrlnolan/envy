@@ -37,8 +37,8 @@ git clone https://github.com/cvrlnolan/envy
 
 This application was built reflecting the MVC architecture and the main dependencies(all found in the `package.json`) of the application are organised as so:
 
-- Front-end User Interface(UI): [Semantic UI React](https://react.semantic-ui.com/)
-- Backend Integration: [NextJS API](https://nextjs.org/docs/api-routes/introduction) (basically [NodeJS](https://nodejs.org/))
+- Front-end User Interface(UI): [React.js](https://reactjs.org/) ,[Semantic UI React](https://react.semantic-ui.com/)
+- Backend Integration: [NextJS API(serverless functions)](https://nextjs.org/docs/api-routes/introduction) (basically [NodeJS](https://nodejs.org/))
 - Database Management: [Firestore](https://firebase.google.com/products/firestore/) (a database service provided by Google Firebase)
 - File Storage: [Firebase Storage](https://firebase.google.com/products/storage/)
 
