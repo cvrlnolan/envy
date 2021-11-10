@@ -28,11 +28,11 @@ import MapGL,
     NavigationControl
 } from "react-map-gl"
 
-import LikeVenue from "@/firebase/venue/likeVenue"
+import LikeVenue from "@/lib/venue/likeVenue"
 
-import PostReview from "@/firebase/venue/postReview"
+import PostReview from "@/lib/venue/postReview"
 
-import RateVenue from "@/firebase/venue/rateVenue"
+import RateVenue from "@/lib/venue/rateVenue"
 
 export default function VenuePage() {
 

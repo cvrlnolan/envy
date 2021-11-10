@@ -29,7 +29,7 @@ import { countryOptions } from "@/assets/countries"
 import { categories } from "@/assets/eventCategories"
 import { types } from "@/assets/eventTypes"
 import { extensions } from "@/assets/phoneExtensions"
-import InsertEvent from "@/firebase/event/createEvent"
+import InsertEvent from "@/lib/event/createEvent"
 
 export default function CreateEvent() {
 

@@ -24,7 +24,7 @@ import { specialities } from "@/assets/venueSpecialities"
 import { days } from "@/assets/weekDays"
 import { countryOptions } from "@/assets/countries"
 import { extensions } from "@/assets/phoneExtensions"
-import InsertVenue from "@/firebase/venue/registerVenue"
+import InsertVenue from "@/lib/venue/registerVenue"
 
 export default function CreateVenue() {
 

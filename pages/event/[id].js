@@ -29,9 +29,9 @@ import MapGL,
 
 import PaypalButton from "@/components/paypal/paypalButton"
 
-import LikeEvent from "@/firebase/event/likeEvent"
+import LikeEvent from "@/lib/event/likeEvent"
 
-import PostComment from "@/firebase/event/postComment"
+import PostComment from "@/lib/event/postComment"
 
 export default function EventPage() {
 

@@ -1,4 +1,4 @@
-import { db } from "@/firebase/firebaseAdminInit";
+import { db } from "@/lib/firebaseAdminInit";
 
 //Use Admin SDK in case you strap your Firestore with Security Rules.
 
