@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 13.x, 14.x, 15.x]
-        os: [ubuntu-latest, windows-lates, macOS-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
       - name: Checkout repository
